@@ -1,0 +1,19 @@
+.row-counter-value {
+  font-size: 64px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text-h);
+  margin: 8px 0 16px;
+  font-variant-numeric: tabular-nums;
+}
+
+.row-counter-buttons {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 12px;
+}
+
+.row-counter-buttons .big-button {
+  font-size: 32px;
+  min-height: 72px;
+}
