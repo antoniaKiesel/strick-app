@@ -20,11 +20,15 @@ export function deleteProject(id) {
   return db.projects.delete(id)
 }
 
-export function updateToolValue(projectId, toolIndex, value) {
+// update ist ein Wert oder eine Funktion (alterWert) => neuerWert.
+// Die Funktionsform läuft innerhalb der Transaktion und ist damit atomar:
+// schnelle aufeinanderfolgende Klicks können sich so nicht überschreiben.
+export function updateToolValue(projectId, toolIndex, update) {
   return db.projects
     .where('id')
     .equals(projectId)
     .modify((project) => {
-      project.tools[toolIndex].value = value
+      const tool = project.tools[toolIndex]
+      tool.value = typeof update === 'function' ? update(tool.value) : update
     })
 }

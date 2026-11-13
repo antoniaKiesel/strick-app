@@ -11,7 +11,7 @@ function RowCounter({ label, value, onChange }) {
         <button
           type="button"
           className="big-button"
-          onClick={() => onChange(Math.max(0, value - 1))}
+          onClick={() => onChange((current) => Math.max(0, current - 1))}
           aria-label="Eine Reihe zurück"
         >
           −
@@ -19,7 +19,7 @@ function RowCounter({ label, value, onChange }) {
         <button
           type="button"
           className="big-button primary"
-          onClick={() => onChange(value + 1)}
+          onClick={() => onChange((current) => current + 1)}
           aria-label="Eine Reihe weiter"
         >
           +
