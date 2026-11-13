@@ -1,16 +1,23 @@
 :root {
-  --text: #4b4453;
-  --text-h: #08060d;
-  --bg: #fff;
-  --card-bg: #f7f6f9;
-  --border: #e5e4e7;
-  --accent: #aa3bff;
-  --accent-text: #fff;
-  --danger: #c0392b;
+  /* Farbwelt aus den Figma-Prototypen */
+  --bg: #fdf8f2;
+  --text: #6f6a7a;
+  --text-h: #272030;
+  --accent: #6f3aa6;
+  --accent-strong: #5e2d92;
+  --button-bg: #6f3aa6;
+  --button-text: #fff;
+  --card-lilac: #eae0f8;
+  --card-lilac-strong: #d7c3f0;
+  --card-peach: #f9e3c6;
+  --card-mint: #dcefe3;
+  --card-surface: #fff;
+  --border: #e8e2da;
+  --danger: #b03a2e;
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
 
-  font: 18px/145% var(--sans);
+  font: 17px/145% var(--sans);
   color-scheme: light dark;
   color: var(--text);
   background: var(--bg);
@@ -19,13 +26,19 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #c5c2cc;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --card-bg: #1f2028;
-    --border: #2e303a;
-    --accent: #c084fc;
-    --accent-text: #16171d;
+    --bg: #1c1722;
+    --text: #b3abc1;
+    --text-h: #f2edf8;
+    --accent: #c7a4f2;
+    --accent-strong: #d9bdf9;
+    --button-bg: #7c4dbb;
+    --button-text: #fff;
+    --card-lilac: #342947;
+    --card-lilac-strong: #4a3a66;
+    --card-peach: #403226;
+    --card-mint: #263830;
+    --card-surface: #262030;
+    --border: #3a3345;
     --danger: #e07b6f;
   }
 }
@@ -42,109 +55,219 @@ body {
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
   margin: 0;
-  color: var(--text-h);
-}
-
-h3 {
-  font-size: 18px;
-  margin: 0;
-  color: var(--text-h);
+  color: var(--accent);
 }
 
 .screen {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 16px;
+  gap: 18px;
+  padding: 24px 20px 32px;
+  padding-top: calc(24px + env(safe-area-inset-top));
 }
 
-.screen-header {
+.app-header {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
   gap: 12px;
-  padding-top: env(safe-area-inset-top);
 }
 
-/* Große, gut tippbare Buttons als Grundbaustein */
-.big-button {
-  font: inherit;
-  font-size: 20px;
-  min-height: 56px;
-  padding: 8px 16px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--card-bg);
-  color: var(--text-h);
-  cursor: pointer;
-  touch-action: manipulation;
+.eyebrow {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0 0 6px;
 }
 
-.big-button.primary {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--accent-text);
+.tagline {
+  margin: 8px 0 0;
 }
 
-.big-button.danger {
-  color: var(--danger);
-}
-
-.big-button.back {
-  flex: none;
-}
-
-.big-button:disabled {
-  opacity: 0.5;
-  cursor: default;
-}
-
-.new-project {
+.section-row {
   display: flex;
-  gap: 8px;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
-.new-project input {
-  font: inherit;
-  flex: 1;
-  min-width: 0;
-  min-height: 56px;
-  padding: 0 12px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--card-bg);
+.section-row h2 {
+  font-size: 18px;
+  font-weight: 700;
   color: var(--text-h);
-  box-sizing: border-box;
+  margin: 0;
 }
 
-.empty-hint {
-  margin: 24px 0;
-  text-align: center;
+.section-row span {
+  font-size: 14px;
 }
 
+/* Projektkarten */
 .project-list {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 14px;
 }
 
-.project-list li {
+.project-card {
+  border-radius: 20px;
+  padding: 16px 18px 10px;
+}
+
+.project-card.lilac {
+  background: var(--card-lilac);
+}
+.project-card.peach {
+  background: var(--card-peach);
+}
+.project-card.mint {
+  background: var(--card-mint);
+}
+
+.project-card-top {
   display: flex;
+  align-items: flex-start;
   gap: 8px;
 }
 
 .project-open {
+  font: inherit;
+  background: none;
+  border: none;
+  padding: 4px 0;
   flex: 1;
   text-align: left;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-h);
+  cursor: pointer;
 }
 
-.tool-card {
-  background: var(--card-bg);
+.card-menu {
+  background: none;
+  border: none;
+  font-size: 22px;
+  letter-spacing: 1px;
+  color: var(--text-h);
+  padding: 0 6px;
+  min-height: 44px;
+  min-width: 44px;
+  cursor: pointer;
+}
+
+.project-card-bottom {
+  font: inherit;
+  background: none;
+  border: none;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  min-height: 44px;
+  font-size: 15px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.project-card-bottom .chevron {
+  font-size: 20px;
+  color: var(--text-h);
+}
+
+/* Großer runder Hauptbutton */
+.pill-button {
+  font: inherit;
+  font-size: 19px;
+  font-weight: 600;
+  min-height: 60px;
+  border: none;
+  border-radius: 30px;
+  background: var(--button-bg);
+  color: var(--button-text);
+  width: 100%;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.pill-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.new-project {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.new-project input {
+  font: inherit;
+  font-size: 18px;
+  min-height: 56px;
+  padding: 0 16px;
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 16px;
+  border-radius: 18px;
+  background: var(--card-surface);
+  color: var(--text-h);
+  box-sizing: border-box;
+}
+
+.text-button {
+  font: inherit;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-weight: 600;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.footer-hint,
+.empty-hint {
+  text-align: center;
+  font-size: 14px;
+  margin: 0;
+}
+
+.empty-hint {
+  margin: 20px 0;
+}
+
+/* Projektansicht */
+.back-link {
+  font: inherit;
+  background: none;
+  border: none;
+  padding: 4px 0;
+  align-self: flex-start;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+/* Tool-Karten */
+.tool-card {
+  border-radius: 20px;
+  padding: 16px 18px 12px;
+  background: var(--card-lilac);
+}
+
+.tool-label {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  font-weight: 700;
+  color: var(--text-h);
+  opacity: 0.75;
+  margin: 0;
 }

@@ -5,7 +5,8 @@ import RowCounter from './rowCounter/RowCounter.jsx'
 export const toolRegistry = {
   rowCounter: {
     key: 'rowCounter',
-    name: 'Reihenzähler',
+    name: 'Reihe',
+    statLabel: 'Reihen', // für die Kurzzeile auf der Projektkarte
     component: RowCounter,
     defaults: { value: 0 },
   },

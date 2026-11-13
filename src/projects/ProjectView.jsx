@@ -1,6 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db, updateToolValue } from '../data/db.js'
 import { toolRegistry } from '../tools/toolRegistry.js'
+import YarnIcon from '../components/YarnIcon.jsx'
 
 function ProjectView({ projectId, onBack }) {
   const project = useLiveQuery(() => db.projects.get(projectId), [projectId])
@@ -9,11 +10,13 @@ function ProjectView({ projectId, onBack }) {
 
   return (
     <div className="screen">
-      <header className="screen-header">
-        <button type="button" className="big-button back" onClick={onBack}>
-          ← Zurück
-        </button>
+      <button type="button" className="back-link" onClick={onBack}>
+        ‹ Projekte
+      </button>
+
+      <header className="app-header">
         <h1>{project.name}</h1>
+        <YarnIcon size={48} />
       </header>
 
       {project.tools.map((tool, index) => {
