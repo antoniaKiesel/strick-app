@@ -11,6 +11,8 @@ function statsLine(project) {
   return project.tools
     .map((tool) => {
       const definition = toolRegistry[tool.type]
+      // Tools mit eigenem Format (z. B. Objekt-Werte) liefern die Zeile selbst.
+      if (definition?.formatStat) return definition.formatStat(tool.value)
       if (!definition?.statLabel) return null
       return `${tool.value} ${definition.statLabel}`
     })

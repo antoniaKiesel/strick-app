@@ -26,6 +26,23 @@ db.version(2).upgrade((transaction) =>
     })
 )
 
+// Gleiche Nachrüst-Logik für den Rapportzähler: Projekte aus Version 2
+// bekommen das neue Standard-Tool angehängt (Upgrades laufen nur einmal
+// pro Version, deshalb reicht die Version-2-Migration dafür nicht aus).
+db.version(3).upgrade((transaction) =>
+  transaction
+    .table('projects')
+    .toCollection()
+    .modify((project) => {
+      const existingTypes = new Set(project.tools.map((tool) => tool.type))
+      for (const defaultTool of createDefaultTools()) {
+        if (!existingTypes.has(defaultTool.type)) {
+          project.tools.push(defaultTool)
+        }
+      }
+    })
+)
+
 export function createProject(name, tools) {
   return db.projects.add({
     name,
