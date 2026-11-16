@@ -25,6 +25,17 @@ function StitchCounter({ label, value, onChange }) {
     })
   }
 
+  // Reset landet ebenfalls auf dem Stapel: ein versehentlicher Tipp
+  // lässt sich also mit Rückgängig zurückholen.
+  function reset() {
+    onChange((current) => {
+      if (current === 0) return current
+      historyRef.current.push(current)
+      setHistorySize(historyRef.current.length)
+      return 0
+    })
+  }
+
   function undo() {
     onChange((current) => {
       if (historyRef.current.length === 0) return current
@@ -56,14 +67,25 @@ function StitchCounter({ label, value, onChange }) {
           +
         </button>
       </div>
-      <button
-        type="button"
-        className="stitch-undo"
-        onClick={undo}
-        disabled={historySize === 0}
-      >
-        ↺ Rückgängig
-      </button>
+      <div className="stitch-actions">
+        <button
+          type="button"
+          className="stitch-undo"
+          onClick={undo}
+          disabled={historySize === 0}
+        >
+          ↺ Rückgängig
+        </button>
+        <button
+          type="button"
+          className="stitch-reset"
+          onClick={reset}
+          disabled={value === 0}
+          aria-label="Maschenzähler auf null setzen"
+        >
+          Auf 0
+        </button>
+      </div>
     </section>
   )
 }

@@ -38,13 +38,17 @@
   color: var(--button-text);
 }
 
-.stitch-undo {
+.stitch-actions {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.stitch-undo,
+.stitch-reset {
   font: inherit;
-  display: block;
-  margin: 0 auto;
   background: none;
   border: none;
-  color: var(--accent);
   font-weight: 600;
   font-size: 15px;
   min-height: 44px;
@@ -53,7 +57,18 @@
   touch-action: manipulation;
 }
 
-.stitch-undo:disabled {
+.stitch-undo {
+  color: var(--accent);
+}
+
+/* Dezente Warnfarbe: Reset wirft den Stand weg (bleibt aber über
+   Rückgängig zurückholbar). */
+.stitch-reset {
+  color: var(--danger);
+}
+
+.stitch-undo:disabled,
+.stitch-reset:disabled {
   opacity: 0.45;
   cursor: default;
 }
