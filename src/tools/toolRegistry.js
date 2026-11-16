@@ -1,5 +1,6 @@
 import RowCounter from './rowCounter/RowCounter.jsx'
 import StitchCounter from './stitchCounter/StitchCounter.jsx'
+import RapportCounter from './rapportCounter/RapportCounter.jsx'
 
 // Zentrale Liste aller Tools. Ein neues Tool braucht nur einen eigenen
 // Ordner unter src/tools/ und einen Eintrag hier – sonst nichts.
@@ -17,6 +18,15 @@ export const toolRegistry = {
     statLabel: 'Maschen',
     component: StitchCounter,
     defaults: { value: 0 },
+  },
+  rapportCounter: {
+    key: 'rapportCounter',
+    name: 'Muster wiederholen',
+    // value ist hier ein Objekt – statt statLabel formatiert formatStat
+    // die Kurzzeile auf der Projektkarte selbst.
+    formatStat: (value) => `Rapport ${value.current}/${value.total}`,
+    component: RapportCounter,
+    defaults: { value: { current: 0, total: 6 } },
   },
 }
 

@@ -1,0 +1,136 @@
+/* Eigene Klassen statt der Klassen anderer Tools,
+   damit die Tools unabhängig voneinander bleiben. */
+
+.rapport-counter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 10px 0 4px;
+}
+
+.rapport-value {
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--accent);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.rapport-value-word {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  opacity: 0.8;
+}
+
+.rapport-button {
+  font: inherit;
+  font-size: 30px;
+  width: 80px;
+  height: 64px;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  touch-action: manipulation;
+  flex-shrink: 0;
+}
+
+.rapport-button.minus {
+  background: var(--card-lilac-strong);
+  color: var(--accent-strong);
+}
+
+.rapport-button.plus {
+  background: var(--button-bg);
+  color: var(--button-text);
+}
+
+/* Fortschrittsbalken wie auf der Figma-Karte „Muster wiederholen“ */
+.rapport-progress {
+  height: 10px;
+  border-radius: 5px;
+  background: var(--card-lilac-strong);
+  overflow: hidden;
+  margin: 10px 0 6px;
+}
+
+.rapport-progress-fill {
+  height: 100%;
+  border-radius: 5px;
+  background: var(--accent);
+  transition: width 150ms ease-out;
+}
+
+.rapport-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.rapport-undo {
+  font: inherit;
+  background: none;
+  border: none;
+  font-weight: 600;
+  font-size: 15px;
+  min-height: 44px;
+  padding: 0 4px;
+  color: var(--accent);
+  cursor: pointer;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.rapport-undo:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.rapport-total {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rapport-total-label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-right: 2px;
+}
+
+.rapport-total-value {
+  font-weight: 700;
+  color: var(--text-h);
+  min-width: 28px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.rapport-total-button {
+  font: inherit;
+  font-size: 20px;
+  width: 40px;
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  background: var(--card-lilac-strong);
+  color: var(--accent-strong);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.rapport-total-button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.rapport-hint {
+  text-align: center;
+  font-size: 13px;
+  margin: 6px 0 2px;
+}
