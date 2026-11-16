@@ -27,6 +27,20 @@ Antworte auf Deutsch.
 - Anleitung (PDF oder Foto) an ein Projekt anhängen
 - Markierung der aktuellen Zeile in der Anleitung
 
+## Vorschau im iPhone-Simulator
+In jeder Session, die an der App arbeitet, soll ich die Entwicklung live
+verfolgen können:
+- Gleich zu Beginn das iPhone-Simulator-Panel öffnen (attach). Falls kein
+  Gerät gebootet ist: zuerst `xcrun simctl boot "iPhone 17 Pro"` und mit
+  `xcrun simctl bootstatus "iPhone 17 Pro"` auf den Boot warten.
+- Dev-Server starten (npm run dev) und die App im Simulator-Safari öffnen:
+  `xcrun simctl openurl booted http://127.0.0.1:<Port>` — wichtig: 127.0.0.1,
+  nicht „localhost“ (löst im Simulator nach IPv6 auf, Vite lauscht nur auf IPv4).
+- Vite-HMR aktualisiert die Seite meist automatisch; nach größeren Umbauten
+  die Seite im Simulator neu laden.
+- Läuft bereits eine andere Session mit dem Simulator, nicht dazwischenfunken:
+  dann stattdessen das Browser-Panel mit mobilem Viewport nutzen.
+
 ## Roadmap
 Erledigte Punkte hier abhaken, sobald der zugehörige Pull Request gemergt ist.
 - [x] 1. Deployment auf GitHub Pages + PWA (auf dem iPhone installierbar)
