@@ -1,47 +1,63 @@
 /* Bewusst eigene Klassen statt der RowCounter-Klassen,
-   damit die Tools unabhängig voneinander bleiben. */
+   damit die Tools unabhängig voneinander bleiben.
+   Layout nach Figma: kompakte Mint-Karte, Wert links, Buttons rechts. */
 
-.stitch-counter {
+.stitch-card {
+  background: var(--card-mint);
+}
+
+.stitch-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin: 10px 0 4px;
+}
+
+.stitch-label {
+  color: var(--mint-text);
+  opacity: 1;
 }
 
 .stitch-counter-value {
-  font-size: 56px;
+  font-size: 40px;
   font-weight: 800;
-  color: var(--accent);
-  margin: 0;
+  line-height: 1.1;
+  color: var(--mint-text);
+  margin: 2px 0 0;
   font-variant-numeric: tabular-nums;
+}
+
+.stitch-buttons {
+  display: flex;
+  gap: 10px;
 }
 
 .stitch-button {
   font: inherit;
-  font-size: 30px;
-  width: 80px;
-  height: 64px;
+  font-size: 26px;
+  width: 64px;
+  height: 56px;
   border: none;
-  border-radius: 16px;
+  border-radius: 14px;
   cursor: pointer;
   touch-action: manipulation;
 }
 
 .stitch-button.minus {
-  background: var(--card-lilac-strong);
-  color: var(--accent-strong);
+  background: var(--mint-strong);
+  color: var(--mint-text);
 }
 
 .stitch-button.plus {
-  background: var(--button-bg);
-  color: var(--button-text);
+  background: var(--mint-deep);
+  color: #fff;
 }
 
 .stitch-actions {
   display: flex;
-  justify-content: center;
-  gap: 24px;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 2px;
 }
 
 .stitch-undo,
@@ -50,15 +66,15 @@
   background: none;
   border: none;
   font-weight: 600;
-  font-size: 15px;
-  min-height: 44px;
-  padding: 0 16px;
+  font-size: 14px;
+  min-height: 40px;
+  padding: 0 8px;
   cursor: pointer;
   touch-action: manipulation;
 }
 
 .stitch-undo {
-  color: var(--accent);
+  color: var(--mint-text);
 }
 
 /* Dezente Warnfarbe: Reset wirft den Stand weg (bleibt aber über

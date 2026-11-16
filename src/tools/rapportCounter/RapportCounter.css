@@ -1,119 +1,119 @@
 /* Eigene Klassen statt der Klassen anderer Tools,
-   damit die Tools unabhängig voneinander bleiben. */
+   damit die Tools unabhängig voneinander bleiben.
+   Layout nach Figma: Überschrift mit „Bearbeiten“ außen,
+   kompakte Pfirsich-Karte mit segmentiertem Fortschritt. */
+
+.rapport-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.rapport-heading {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-h);
+  margin: 0;
+}
+
+.rapport-edit-toggle {
+  font: inherit;
+  background: none;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  min-height: 40px;
+  padding: 0 4px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.rapport-card {
+  background: var(--card-peach);
+}
 
 .rapport-counter {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin: 10px 0 4px;
 }
 
 .rapport-value {
-  font-size: 34px;
+  font-size: 22px;
   font-weight: 800;
-  color: var(--accent);
+  color: var(--peach-text);
   margin: 0;
   font-variant-numeric: tabular-nums;
   text-align: center;
-  line-height: 1.1;
-}
-
-.rapport-value-word {
-  display: block;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-  opacity: 0.8;
 }
 
 .rapport-button {
   font: inherit;
-  font-size: 30px;
-  width: 80px;
-  height: 64px;
+  font-size: 26px;
+  width: 64px;
+  height: 56px;
   border: none;
-  border-radius: 16px;
+  border-radius: 14px;
   cursor: pointer;
   touch-action: manipulation;
   flex-shrink: 0;
 }
 
 .rapport-button.minus {
-  background: var(--card-lilac-strong);
-  color: var(--accent-strong);
+  background: var(--peach-strong);
+  color: var(--peach-text);
 }
 
 .rapport-button.plus {
-  background: var(--button-bg);
-  color: var(--button-text);
+  background: var(--peach-deep);
+  color: #fff;
 }
 
-/* Fortschrittsbalken wie auf der Figma-Karte „Muster wiederholen“ */
+/* Segmentierter Fortschritt wie auf der Figma-Karte „Muster wiederholen“ */
+.rapport-segments {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0 2px;
+}
+
+.rapport-segment {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--peach-strong);
+}
+
+.rapport-segment.filled {
+  background: var(--peach-deep);
+}
+
+/* Fallback bei vielen Rapporten: durchgehender Balken */
 .rapport-progress {
-  height: 10px;
-  border-radius: 5px;
-  background: var(--card-lilac-strong);
+  height: 8px;
+  border-radius: 4px;
+  background: var(--peach-strong);
   overflow: hidden;
-  margin: 10px 0 6px;
+  margin: 12px 0 2px;
 }
 
 .rapport-progress-fill {
   height: 100%;
-  border-radius: 5px;
-  background: var(--accent);
+  border-radius: 4px;
+  background: var(--peach-deep);
   transition: width 150ms ease-out;
 }
 
-.rapport-actions {
+/* Einstellungen, eingeblendet über „Bearbeiten“ */
+.rapport-edit-row {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 24px;
-}
-
-/* Dezente Warnfarbe wie beim Maschenzähler: Reset wirft den Stand weg
-   (bleibt aber über Rückgängig zurückholbar). */
-.rapport-reset {
-  font: inherit;
-  background: none;
-  border: none;
-  font-weight: 600;
-  font-size: 15px;
-  min-height: 44px;
-  padding: 0 8px;
-  color: var(--danger);
-  cursor: pointer;
-  touch-action: manipulation;
-}
-
-.rapport-reset:disabled {
-  opacity: 0.45;
-  cursor: default;
-}
-
-.rapport-total-row {
-  display: flex;
-  justify-content: center;
-}
-
-.rapport-undo {
-  font: inherit;
-  background: none;
-  border: none;
-  font-weight: 600;
-  font-size: 15px;
-  min-height: 44px;
-  padding: 0 4px;
-  color: var(--accent);
-  cursor: pointer;
-  touch-action: manipulation;
-  white-space: nowrap;
-}
-
-.rapport-undo:disabled {
-  opacity: 0.45;
-  cursor: default;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
 }
 
 .rapport-total {
@@ -125,6 +125,7 @@
 .rapport-total-label {
   font-size: 13px;
   font-weight: 600;
+  color: var(--peach-text);
   margin-right: 2px;
 }
 
@@ -139,12 +140,12 @@
 .rapport-total-button {
   font: inherit;
   font-size: 20px;
-  width: 40px;
+  width: 44px;
   height: 44px;
   border: none;
   border-radius: 12px;
-  background: var(--card-lilac-strong);
-  color: var(--accent-strong);
+  background: var(--peach-strong);
+  color: var(--peach-text);
   cursor: pointer;
   touch-action: manipulation;
 }
@@ -154,8 +155,54 @@
   cursor: default;
 }
 
+.rapport-edit-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rapport-undo {
+  font: inherit;
+  background: none;
+  border: none;
+  font-weight: 600;
+  font-size: 14px;
+  min-height: 40px;
+  padding: 0 4px;
+  color: var(--peach-text);
+  cursor: pointer;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.rapport-undo:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* Dezente Warnfarbe wie beim Maschenzähler: Reset wirft den Stand weg
+   (bleibt aber über Rückgängig zurückholbar). */
+.rapport-reset {
+  font: inherit;
+  background: none;
+  border: none;
+  font-weight: 600;
+  font-size: 14px;
+  min-height: 40px;
+  padding: 0 4px;
+  color: var(--danger);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.rapport-reset:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
 .rapport-hint {
   text-align: center;
   font-size: 13px;
-  margin: 6px 0 2px;
+  margin: 8px 0 0;
+  color: var(--peach-text);
 }

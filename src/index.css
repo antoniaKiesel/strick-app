@@ -16,6 +16,14 @@
   --border: #e8e2da;
   --danger: #b03a2e;
 
+  /* Mint-Töne (Maschen-Karte) und Pfirsich-Töne (Rapport-Karte) */
+  --mint-strong: #c3e3d0;
+  --mint-deep: #2e6b4f;
+  --mint-text: #1d5c40;
+  --peach-strong: #f0d2a4;
+  --peach-deep: #9a5a24;
+  --peach-text: #7c4a1e;
+
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
 
   font: 17px/145% var(--sans);
@@ -42,6 +50,13 @@
     --card-surface: #262030;
     --border: #3a3345;
     --danger: #e07b6f;
+
+    --mint-strong: #2d4a3b;
+    --mint-deep: #4e9a74;
+    --mint-text: #a8d9bf;
+    --peach-strong: #54402a;
+    --peach-deep: #d99a5b;
+    --peach-text: #e8c49a;
   }
 }
 
