@@ -45,7 +45,7 @@ verfolgen können:
 Erledigte Punkte hier abhaken, sobald der zugehörige Pull Request gemergt ist.
 - [x] 1. Deployment auf GitHub Pages + PWA (auf dem iPhone installierbar)
 - [x] 2. Maschenzähler
-- [ ] 3. Rapport-/Wiederholungszähler
+- [x] 3. Rapport-/Wiederholungszähler
 - [ ] 4. Notizen
 - [ ] 5. Anleitung anhängen (PDF/Foto)
 - [ ] 6. Zeilenmarkierung in der Anleitung
