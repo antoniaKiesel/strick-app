@@ -69,6 +69,14 @@ function RapportCounter({ label, value, onChange }) {
   const done = value.current >= value.total
   const progress = Math.min(100, (value.current / value.total) * 100)
 
+  // Ein Tipp auf die Karte (außerhalb der Buttons) klappt die Einstellungen
+  // ebenfalls auf bzw. zu. Der „Bearbeiten“-Button im Kopf bleibt als
+  // sichtbarer Einstieg und für Tastatur/Screenreader.
+  function handleCardClick(event) {
+    if (event.target.closest('button')) return
+    setEditing((wasEditing) => !wasEditing)
+  }
+
   return (
     <section className="rapport-tool">
       <div className="rapport-header">
@@ -82,7 +90,7 @@ function RapportCounter({ label, value, onChange }) {
         </button>
       </div>
 
-      <div className="tool-card rapport-card">
+      <div className="tool-card rapport-card" onClick={handleCardClick}>
         <div className="rapport-counter">
           <button
             type="button"

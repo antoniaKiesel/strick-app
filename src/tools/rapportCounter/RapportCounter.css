@@ -32,6 +32,9 @@
 
 .rapport-card {
   background: var(--card-peach);
+  /* Die Karte selbst ist tippbar (klappt die Einstellungen auf/zu). */
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .rapport-counter {
