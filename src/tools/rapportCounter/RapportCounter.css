@@ -67,9 +67,34 @@
 
 .rapport-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 24px;
+}
+
+/* Dezente Warnfarbe wie beim Maschenzähler: Reset wirft den Stand weg
+   (bleibt aber über Rückgängig zurückholbar). */
+.rapport-reset {
+  font: inherit;
+  background: none;
+  border: none;
+  font-weight: 600;
+  font-size: 15px;
+  min-height: 44px;
+  padding: 0 8px;
+  color: var(--danger);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.rapport-reset:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.rapport-total-row {
+  display: flex;
+  justify-content: center;
 }
 
 .rapport-undo {

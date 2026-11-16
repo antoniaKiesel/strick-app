@@ -44,6 +44,12 @@ function RapportCounter({ label, value, onChange }) {
     })
   }
 
+  // Neues Muster anfangen: Stand auf 0, Gesamtzahl bleibt. Landet auf dem
+  // Undo-Stapel, ein versehentlicher Tipp lässt sich also zurückholen.
+  function reset() {
+    change((v) => (v.current === 0 ? v : { ...v, current: 0 }))
+  }
+
   function undo() {
     onChange((current) => {
       if (historyRef.current.length === 0) return current
@@ -100,6 +106,17 @@ function RapportCounter({ label, value, onChange }) {
         >
           ↺ Rückgängig
         </button>
+        <button
+          type="button"
+          className="rapport-reset"
+          onClick={reset}
+          disabled={value.current === 0}
+          aria-label="Rapportzähler auf null setzen"
+        >
+          Auf 0
+        </button>
+      </div>
+      <div className="rapport-total-row">
         <div className="rapport-total">
           <span className="rapport-total-label">Gesamt</span>
           <button
