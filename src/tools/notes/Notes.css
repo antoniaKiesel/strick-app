@@ -1,0 +1,108 @@
+/* Eigene Klassen statt der Klassen anderer Tools,
+   damit die Tools unabhängig voneinander bleiben. */
+
+/* Kopfzeile wie im Figma: Überschrift links, „+ Hinzufügen“ rechts –
+   anders als bei den Zähler-Karten liegt sie außerhalb der Karte. */
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.notes-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-h);
+  margin: 0;
+}
+
+.notes-add {
+  font: inherit;
+  background: none;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  min-height: 44px;
+  padding: 0 4px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.notes-card {
+  border-radius: 20px;
+  padding: 14px 18px;
+  background: var(--card-butter);
+  margin-top: 6px;
+}
+
+.notes-empty {
+  font-size: 14px;
+  margin: 2px 0;
+}
+
+.notes-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Die ganze Zeile ist Tippfläche (einhändig bedienbar, mind. 44px hoch). */
+.notes-text {
+  font: inherit;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding: 8px 0;
+  min-height: 44px;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: var(--text-h);
+  cursor: pointer;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.notes-textarea {
+  font: inherit;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card-surface);
+  color: var(--text-h);
+  resize: vertical;
+}
+
+.notes-edit-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notes-delete,
+.notes-done {
+  font: inherit;
+  background: none;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  min-height: 44px;
+  padding: 0 4px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.notes-delete {
+  color: var(--danger);
+}
+
+.notes-done {
+  color: var(--accent);
+}

@@ -43,6 +43,22 @@ db.version(3).upgrade((transaction) =>
     })
 )
 
+// Und noch einmal für die Notizen: Projekte aus Version 3 bekommen das
+// neue Standard-Tool (leeres Notizen-Array) angehängt.
+db.version(4).upgrade((transaction) =>
+  transaction
+    .table('projects')
+    .toCollection()
+    .modify((project) => {
+      const existingTypes = new Set(project.tools.map((tool) => tool.type))
+      for (const defaultTool of createDefaultTools()) {
+        if (!existingTypes.has(defaultTool.type)) {
+          project.tools.push(defaultTool)
+        }
+      }
+    })
+)
+
 export function createProject(name, tools) {
   return db.projects.add({
     name,
