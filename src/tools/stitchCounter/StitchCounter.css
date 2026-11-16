@@ -1,0 +1,59 @@
+/* Bewusst eigene Klassen statt der RowCounter-Klassen,
+   damit die Tools unabhängig voneinander bleiben. */
+
+.stitch-counter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 10px 0 4px;
+}
+
+.stitch-counter-value {
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--accent);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.stitch-button {
+  font: inherit;
+  font-size: 30px;
+  width: 80px;
+  height: 64px;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.stitch-button.minus {
+  background: var(--card-lilac-strong);
+  color: var(--accent-strong);
+}
+
+.stitch-button.plus {
+  background: var(--button-bg);
+  color: var(--button-text);
+}
+
+.stitch-undo {
+  font: inherit;
+  display: block;
+  margin: 0 auto;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 15px;
+  min-height: 44px;
+  padding: 0 16px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.stitch-undo:disabled {
+  opacity: 0.45;
+  cursor: default;
+}

@@ -1,4 +1,5 @@
 import Dexie from 'dexie'
+import { createDefaultTools } from '../tools/toolRegistry.js'
 
 export const db = new Dexie('strick-app')
 
@@ -7,6 +8,23 @@ export const db = new Dexie('strick-app')
 db.version(1).stores({
   projects: '++id, name, createdAt',
 })
+
+// Bestehende Projekte wurden vor dem Maschenzähler angelegt und haben ihn
+// noch nicht im tools-Array. Die Migration trägt alle Standard-Tools nach,
+// die einem Projekt fehlen (das Schema selbst bleibt unverändert).
+db.version(2).upgrade((transaction) =>
+  transaction
+    .table('projects')
+    .toCollection()
+    .modify((project) => {
+      const existingTypes = new Set(project.tools.map((tool) => tool.type))
+      for (const defaultTool of createDefaultTools()) {
+        if (!existingTypes.has(defaultTool.type)) {
+          project.tools.push(defaultTool)
+        }
+      }
+    })
+)
 
 export function createProject(name, tools) {
   return db.projects.add({
