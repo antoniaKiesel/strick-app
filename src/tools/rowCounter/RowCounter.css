@@ -1,0 +1,42 @@
+.row-counter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 10px 0 4px;
+}
+
+.row-counter-value {
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--accent);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.counter-button {
+  font: inherit;
+  font-size: 30px;
+  width: 80px;
+  height: 64px;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.counter-button.minus {
+  background: var(--card-lilac-strong);
+  color: var(--accent-strong);
+}
+
+.counter-button.plus {
+  background: var(--button-bg);
+  color: var(--button-text);
+}
+
+.tool-hint {
+  text-align: center;
+  font-size: 13px;
+  margin: 2px 0;
+}
