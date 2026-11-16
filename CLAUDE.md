@@ -29,7 +29,7 @@ Antworte auf Deutsch.
 
 ## Roadmap
 Erledigte Punkte hier abhaken, sobald der zugehörige Pull Request gemergt ist.
-- [ ] 1. Deployment auf GitHub Pages + PWA (auf dem iPhone installierbar)
+- [x] 1. Deployment auf GitHub Pages + PWA (auf dem iPhone installierbar)
 - [ ] 2. Maschenzähler
 - [ ] 3. Rapport-/Wiederholungszähler
 - [ ] 4. Notizen
