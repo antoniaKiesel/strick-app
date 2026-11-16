@@ -27,6 +27,15 @@ Antworte auf Deutsch.
 - Anleitung (PDF oder Foto) an ein Projekt anhängen
 - Markierung der aktuellen Zeile in der Anleitung
 
+## Roadmap
+Erledigte Punkte hier abhaken, sobald der zugehörige Pull Request gemergt ist.
+- [ ] 1. Deployment auf GitHub Pages + PWA (auf dem iPhone installierbar)
+- [ ] 2. Maschenzähler
+- [ ] 3. Rapport-/Wiederholungszähler
+- [ ] 4. Notizen
+- [ ] 5. Anleitung anhängen (PDF/Foto)
+- [ ] 6. Zeilenmarkierung in der Anleitung
+
 ## Git-Workflow
 - Für jede neue Funktion einen eigenen Branch (feature/…, fix/…, refactor/…)
 - Commit-Messages nach Conventional Commits (feat:, fix:, refactor:, chore:)
