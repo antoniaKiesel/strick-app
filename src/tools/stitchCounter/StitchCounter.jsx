@@ -46,13 +46,10 @@ function StitchCounter({ label, value, onChange }) {
   }
 
   return (
-    <section className="tool-card stitch-card">
-      <div className="stitch-row">
-        <div className="stitch-info">
-          <p className="tool-label stitch-label">{label}</p>
-          <p className="stitch-counter-value">{value}</p>
-        </div>
-        <div className="stitch-buttons">
+    <section>
+      <p className="section-header">{label}</p>
+      <div className="cell-group">
+        <div className="cell-row stitch-main">
           <button
             type="button"
             className="stitch-button minus"
@@ -61,6 +58,7 @@ function StitchCounter({ label, value, onChange }) {
           >
             −
           </button>
+          <p className="stitch-counter-value">{value}</p>
           <button
             type="button"
             className="stitch-button plus"
@@ -70,8 +68,7 @@ function StitchCounter({ label, value, onChange }) {
             +
           </button>
         </div>
-      </div>
-      <div className="stitch-actions">
+        <div className="cell-row stitch-actions">
         <button
           type="button"
           className="stitch-undo"
@@ -89,6 +86,7 @@ function StitchCounter({ label, value, onChange }) {
         >
           Auf 0
         </button>
+        </div>
       </div>
     </section>
   )

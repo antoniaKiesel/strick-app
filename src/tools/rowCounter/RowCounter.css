@@ -1,42 +1,35 @@
 .row-counter {
-  display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  margin: 10px 0 4px;
+  padding-top: 14px;
+  padding-bottom: 14px;
 }
 
 .row-counter-value {
-  font-size: 56px;
-  font-weight: 800;
-  color: var(--accent);
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--label);
   margin: 0;
   font-variant-numeric: tabular-nums;
 }
 
-.counter-button {
+.row-button {
   font: inherit;
-  font-size: 30px;
-  width: 80px;
-  height: 64px;
+  font-size: 28px;
+  width: 76px;
+  height: 56px;
   border: none;
-  border-radius: 16px;
+  border-radius: 14px;
   cursor: pointer;
   touch-action: manipulation;
+  flex-shrink: 0;
 }
 
-.counter-button.minus {
-  background: var(--card-lilac-strong);
-  color: var(--accent-strong);
+.row-button.minus {
+  background: var(--fill-gray);
+  color: var(--label);
 }
 
-.counter-button.plus {
-  background: var(--button-bg);
-  color: var(--button-text);
-}
-
-.tool-hint {
-  text-align: center;
-  font-size: 13px;
-  margin: 2px 0;
+.row-button.plus {
+  background: var(--tint);
+  color: var(--on-tint);
 }

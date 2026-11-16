@@ -1,63 +1,47 @@
 /* Bewusst eigene Klassen statt der RowCounter-Klassen,
-   damit die Tools unabhängig voneinander bleiben.
-   Layout nach Figma: kompakte Mint-Karte, Wert links, Buttons rechts. */
+   damit die Tools unabhängig voneinander bleiben. */
 
-.stitch-card {
-  background: var(--card-mint);
-}
-
-.stitch-row {
-  display: flex;
-  align-items: center;
+.stitch-main {
   justify-content: space-between;
-  gap: 16px;
-}
-
-.stitch-label {
-  color: var(--mint-text);
-  opacity: 1;
+  padding-top: 14px;
+  padding-bottom: 14px;
 }
 
 .stitch-counter-value {
-  font-size: 40px;
-  font-weight: 800;
-  line-height: 1.1;
-  color: var(--mint-text);
-  margin: 2px 0 0;
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--label);
+  margin: 0;
   font-variant-numeric: tabular-nums;
-}
-
-.stitch-buttons {
-  display: flex;
-  gap: 10px;
 }
 
 .stitch-button {
   font: inherit;
-  font-size: 26px;
-  width: 64px;
+  font-size: 28px;
+  width: 76px;
   height: 56px;
   border: none;
   border-radius: 14px;
   cursor: pointer;
   touch-action: manipulation;
+  flex-shrink: 0;
 }
 
 .stitch-button.minus {
-  background: var(--mint-strong);
-  color: var(--mint-text);
+  background: var(--fill-gray);
+  color: var(--label);
 }
 
 .stitch-button.plus {
-  background: var(--mint-deep);
-  color: #fff;
+  background: var(--tint);
+  color: var(--on-tint);
 }
 
 .stitch-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 16px;
-  margin-top: 2px;
+  justify-content: center;
+  gap: 32px;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .stitch-undo,
@@ -65,8 +49,7 @@
   font: inherit;
   background: none;
   border: none;
-  font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
   min-height: 40px;
   padding: 0 8px;
   cursor: pointer;
@@ -74,17 +57,17 @@
 }
 
 .stitch-undo {
-  color: var(--mint-text);
+  color: var(--tint);
 }
 
-/* Dezente Warnfarbe: Reset wirft den Stand weg (bleibt aber über
-   Rückgängig zurückholbar). */
+/* Destruktive Aktion in iOS-Rot: Reset wirft den Stand weg
+   (bleibt aber über Rückgängig zurückholbar). */
 .stitch-reset {
-  color: var(--danger);
+  color: var(--destructive);
 }
 
 .stitch-undo:disabled,
 .stitch-reset:disabled {
-  opacity: 0.45;
+  opacity: 0.4;
   cursor: default;
 }
