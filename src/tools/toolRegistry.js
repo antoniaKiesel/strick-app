@@ -1,6 +1,7 @@
 import RowCounter from './rowCounter/RowCounter.jsx'
 import StitchCounter from './stitchCounter/StitchCounter.jsx'
 import RapportCounter from './rapportCounter/RapportCounter.jsx'
+import Notes from './notes/Notes.jsx'
 
 // Zentrale Liste aller Tools. Ein neues Tool braucht nur einen eigenen
 // Ordner unter src/tools/ und einen Eintrag hier – sonst nichts.
@@ -27,6 +28,19 @@ export const toolRegistry = {
     formatStat: (value) => `Rapport ${value.current}/${value.total}`,
     component: RapportCounter,
     defaults: { value: { current: 0, total: 6 } },
+  },
+  notes: {
+    key: 'notes',
+    name: 'Notizen',
+    // Ohne Notizen keine Kurzzeile (statsLine filtert null heraus).
+    formatStat: (value) =>
+      value.length === 0
+        ? null
+        : value.length === 1
+          ? '1 Notiz'
+          : `${value.length} Notizen`,
+    component: Notes,
+    defaults: { value: [] },
   },
 }
 
