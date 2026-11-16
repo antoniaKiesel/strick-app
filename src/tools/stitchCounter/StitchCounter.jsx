@@ -46,26 +46,30 @@ function StitchCounter({ label, value, onChange }) {
   }
 
   return (
-    <section className="tool-card">
-      <p className="tool-label">{label}</p>
-      <div className="stitch-counter">
-        <button
-          type="button"
-          className="stitch-button minus"
-          onClick={() => applyChange(-1)}
-          aria-label="Eine Masche zurück"
-        >
-          −
-        </button>
-        <p className="stitch-counter-value">{value}</p>
-        <button
-          type="button"
-          className="stitch-button plus"
-          onClick={() => applyChange(1)}
-          aria-label="Eine Masche weiter"
-        >
-          +
-        </button>
+    <section className="tool-card stitch-card">
+      <div className="stitch-row">
+        <div className="stitch-info">
+          <p className="tool-label stitch-label">{label}</p>
+          <p className="stitch-counter-value">{value}</p>
+        </div>
+        <div className="stitch-buttons">
+          <button
+            type="button"
+            className="stitch-button minus"
+            onClick={() => applyChange(-1)}
+            aria-label="Eine Masche zurück"
+          >
+            −
+          </button>
+          <button
+            type="button"
+            className="stitch-button plus"
+            onClick={() => applyChange(1)}
+            aria-label="Eine Masche weiter"
+          >
+            +
+          </button>
+        </div>
       </div>
       <div className="stitch-actions">
         <button

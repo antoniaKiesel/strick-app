@@ -9,8 +9,15 @@ import './RapportCounter.css'
 
 const MIN_TOTAL = 1
 const MAX_TOTAL = 99
+// Bis zu dieser Gesamtzahl zeigen wir Segmente wie im Figma,
+// darüber einen durchgehenden Balken.
+const MAX_SEGMENTS = 12
 
 function RapportCounter({ label, value, onChange }) {
+  // Einstellungen (Gesamtzahl, Rückgängig, Auf 0) sind wie im Figma
+  // hinter „Bearbeiten“ verstaut, damit die Karte kompakt bleibt.
+  const [editing, setEditing] = useState(false)
+
   // Undo wie beim Maschenzähler: alte Werte auf einem Stapel im Speicher,
   // gepflegt innerhalb des Updaters (dort ist der Wert garantiert aktuell).
   // Hier liegen ganze { current, total }-Schnappschüsse auf dem Stapel,
@@ -63,88 +70,125 @@ function RapportCounter({ label, value, onChange }) {
   const progress = Math.min(100, (value.current / value.total) * 100)
 
   return (
-    <section className="tool-card">
-      <p className="tool-label">{label}</p>
-      <div className="rapport-counter">
+    <section className="rapport-tool">
+      <div className="rapport-header">
+        <h2 className="rapport-heading">{label}</h2>
         <button
           type="button"
-          className="rapport-button minus"
-          onClick={() => step(-1)}
-          aria-label="Einen Rapport zurück"
+          className="rapport-edit-toggle"
+          onClick={() => setEditing((wasEditing) => !wasEditing)}
         >
-          −
-        </button>
-        <p className="rapport-value">
-          <span className="rapport-value-word">Rapport</span>
-          {value.current} / {value.total}
-        </p>
-        <button
-          type="button"
-          className="rapport-button plus"
-          onClick={() => step(1)}
-          aria-label="Einen Rapport weiter"
-        >
-          +
+          {editing ? 'Fertig' : 'Bearbeiten'}
         </button>
       </div>
-      <div
-        className="rapport-progress"
-        role="progressbar"
-        aria-label="Fortschritt der Musterwiederholungen"
-        aria-valuemin={0}
-        aria-valuemax={value.total}
-        aria-valuenow={value.current}
-      >
-        <div className="rapport-progress-fill" style={{ width: `${progress}%` }} />
-      </div>
-      <div className="rapport-actions">
-        <button
-          type="button"
-          className="rapport-undo"
-          onClick={undo}
-          disabled={historySize === 0}
-        >
-          ↺ Rückgängig
-        </button>
-        <button
-          type="button"
-          className="rapport-reset"
-          onClick={reset}
-          disabled={value.current === 0}
-          aria-label="Rapportzähler auf null setzen"
-        >
-          Auf 0
-        </button>
-      </div>
-      <div className="rapport-total-row">
-        <div className="rapport-total">
-          <span className="rapport-total-label">Gesamt</span>
+
+      <div className="tool-card rapport-card">
+        <div className="rapport-counter">
           <button
             type="button"
-            className="rapport-total-button"
-            onClick={() => changeTotal(-1)}
-            disabled={value.total <= MIN_TOTAL}
-            aria-label="Gesamtzahl der Rapporte verringern"
+            className="rapport-button minus"
+            onClick={() => step(-1)}
+            aria-label="Einen Rapport zurück"
           >
             −
           </button>
-          <span className="rapport-total-value">{value.total}</span>
+          <p className="rapport-value">
+            Rapport {value.current} / {value.total}
+          </p>
           <button
             type="button"
-            className="rapport-total-button"
-            onClick={() => changeTotal(1)}
-            disabled={value.total >= MAX_TOTAL}
-            aria-label="Gesamtzahl der Rapporte erhöhen"
+            className="rapport-button plus"
+            onClick={() => step(1)}
+            aria-label="Einen Rapport weiter"
           >
             +
           </button>
         </div>
+
+        {value.total <= MAX_SEGMENTS ? (
+          <div
+            className="rapport-segments"
+            role="progressbar"
+            aria-label="Fortschritt der Musterwiederholungen"
+            aria-valuemin={0}
+            aria-valuemax={value.total}
+            aria-valuenow={value.current}
+          >
+            {Array.from({ length: value.total }, (_, index) => (
+              <span
+                key={index}
+                className={
+                  index < value.current
+                    ? 'rapport-segment filled'
+                    : 'rapport-segment'
+                }
+              />
+            ))}
+          </div>
+        ) : (
+          <div
+            className="rapport-progress"
+            role="progressbar"
+            aria-label="Fortschritt der Musterwiederholungen"
+            aria-valuemin={0}
+            aria-valuemax={value.total}
+            aria-valuenow={value.current}
+          >
+            <div
+              className="rapport-progress-fill"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        )}
+
+        {editing && (
+          <div className="rapport-edit-row">
+            <div className="rapport-total">
+              <span className="rapport-total-label">Gesamt</span>
+              <button
+                type="button"
+                className="rapport-total-button"
+                onClick={() => changeTotal(-1)}
+                disabled={value.total <= MIN_TOTAL}
+                aria-label="Gesamtzahl der Rapporte verringern"
+              >
+                −
+              </button>
+              <span className="rapport-total-value">{value.total}</span>
+              <button
+                type="button"
+                className="rapport-total-button"
+                onClick={() => changeTotal(1)}
+                disabled={value.total >= MAX_TOTAL}
+                aria-label="Gesamtzahl der Rapporte erhöhen"
+              >
+                +
+              </button>
+            </div>
+            <div className="rapport-edit-actions">
+              <button
+                type="button"
+                className="rapport-undo"
+                onClick={undo}
+                disabled={historySize === 0}
+              >
+                ↺ Rückgängig
+              </button>
+              <button
+                type="button"
+                className="rapport-reset"
+                onClick={reset}
+                disabled={value.current === 0}
+                aria-label="Rapportzähler auf null setzen"
+              >
+                Auf 0
+              </button>
+            </div>
+          </div>
+        )}
+
+        {done && <p className="rapport-hint">Alle Rapporte geschafft! 🎉</p>}
       </div>
-      <p className="rapport-hint">
-        {done
-          ? 'Alle Rapporte geschafft! 🎉'
-          : 'Eine Musterwiederholung fertig? Tippe auf +.'}
-      </p>
     </section>
   )
 }
