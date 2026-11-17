@@ -1,34 +1,41 @@
 :root {
-  /* Farbwelt aus den Figma-Prototypen */
+  /* Struktur nach Apple HIG (grouped background, Zellen, Label-Hierarchie),
+     Farben aus den Figma-Prototypen: Creme, Lila-Tint, Pastelltöne pro Tool */
   --bg: #fdf8f2;
-  --text: #6f6a7a;
-  --text-h: #272030;
-  --accent: #6f3aa6;
-  --accent-strong: #5e2d92;
-  --button-bg: #6f3aa6;
-  --button-text: #fff;
-  --card-lilac: #eae0f8;
-  --card-lilac-strong: #d7c3f0;
-  --card-peach: #f9e3c6;
-  --card-mint: #dcefe3;
-  --card-butter: #faf0c8;
-  --card-surface: #fff;
-  --border: #e8e2da;
-  --danger: #b03a2e;
+  --cell: #ffffff;
+  --label: #272030;
+  --secondary-label: #6f6a7a;
+  --tertiary-label: rgba(39, 32, 48, 0.3);
+  --separator: rgba(39, 32, 48, 0.12);
+  --tint: #6f3aa6;
+  --on-tint: #fff;
+  --fill-gray: rgba(111, 58, 166, 0.12);
+  --destructive: #b03a2e;
 
-  /* Mint-Töne (Maschen-Karte) und Pfirsich-Töne (Rapport-Karte) */
+  /* Pastellpaletten aus dem Figma: Fläche, kräftiger Ton (Minus-Button),
+     tiefer Ton (Plus-Button), Textfarbe für Werte */
+  --lilac: #eae0f8;
+  --lilac-strong: #d7c3f0;
+  --lilac-deep: #6f3aa6;
+  --lilac-text: #6f3aa6;
+  --mint: #dcefe3;
   --mint-strong: #c3e3d0;
   --mint-deep: #2e6b4f;
   --mint-text: #1d5c40;
+  --peach: #f9e3c6;
   --peach-strong: #f0d2a4;
   --peach-deep: #9a5a24;
   --peach-text: #7c4a1e;
+  --butter: #faf0c8;
+  --butter-strong: #f0e1a0;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  /* SF Pro auf Apple-Geräten, sonst nächstliegende Systemschrift */
+  --sans: -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto,
+    sans-serif;
 
-  font: 17px/145% var(--sans);
+  font: 17px/1.3 var(--sans);
   color-scheme: light dark;
-  color: var(--text);
+  color: var(--label);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
 }
@@ -36,28 +43,59 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #1c1722;
-    --text: #b3abc1;
-    --text-h: #f2edf8;
-    --accent: #c7a4f2;
-    --accent-strong: #d9bdf9;
-    --button-bg: #7c4dbb;
-    --button-text: #fff;
-    --card-lilac: #342947;
-    --card-lilac-strong: #4a3a66;
-    --card-peach: #403226;
-    --card-mint: #263830;
-    --card-butter: #3d3722;
-    --card-surface: #262030;
-    --border: #3a3345;
-    --danger: #e07b6f;
+    --cell: #262030;
+    --label: #f2edf8;
+    --secondary-label: #b3abc1;
+    --tertiary-label: rgba(242, 237, 248, 0.3);
+    --separator: rgba(242, 237, 248, 0.12);
+    --tint: #c7a4f2;
+    --fill-gray: rgba(199, 164, 242, 0.16);
+    --destructive: #e07b6f;
 
+    --lilac: #342947;
+    --lilac-strong: #4a3a66;
+    --lilac-deep: #7c4dbb;
+    --lilac-text: #c7a4f2;
+    --mint: #263830;
     --mint-strong: #2d4a3b;
     --mint-deep: #4e9a74;
     --mint-text: #a8d9bf;
+    --peach: #403226;
     --peach-strong: #54402a;
     --peach-deep: #d99a5b;
     --peach-text: #e8c49a;
+    --butter: #3d3722;
+    --butter-strong: #544b2c;
   }
+}
+
+/* Farbtöne pro Karte: überschreiben lokal die Systemvariablen,
+   damit Tools ohne eigene Farblogik automatisch passend eingefärbt werden.
+   --tone-text färbt große Zahlenwerte (Fallback: --label). */
+.tone-lilac {
+  --cell: var(--lilac);
+  --fill-gray: var(--lilac-strong);
+  --tint: var(--lilac-deep);
+  --tone-text: var(--lilac-text);
+}
+
+.tone-mint {
+  --cell: var(--mint);
+  --fill-gray: var(--mint-strong);
+  --tint: var(--mint-deep);
+  --tone-text: var(--mint-text);
+}
+
+.tone-peach {
+  --cell: var(--peach);
+  --fill-gray: var(--peach-strong);
+  --tint: var(--peach-deep);
+  --tone-text: var(--peach-text);
+}
+
+.tone-butter {
+  --cell: var(--butter);
+  --fill-gray: var(--butter-strong);
 }
 
 body {
@@ -71,220 +109,110 @@ body {
   box-sizing: border-box;
 }
 
-h1 {
-  font-size: 34px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  margin: 0;
-  color: var(--accent);
-}
-
 .screen {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  padding: 24px 20px 32px;
-  padding-top: calc(24px + env(safe-area-inset-top));
+  gap: 22px;
+  padding: 8px 16px 32px;
+  padding-top: calc(8px + env(safe-area-inset-top));
 }
 
-.app-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 1.4px;
-  font-weight: 700;
-  color: var(--accent);
-  margin: 0 0 6px;
-}
-
-.tagline {
-  margin: 8px 0 0;
-}
-
-.section-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
-.section-row h2 {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--text-h);
-  margin: 0;
-}
-
-.section-row span {
-  font-size: 14px;
-}
-
-/* Projektkarten */
-.project-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.project-card {
-  border-radius: 20px;
-  padding: 16px 18px 10px;
-}
-
-.project-card.lilac {
-  background: var(--card-lilac);
-}
-.project-card.peach {
-  background: var(--card-peach);
-}
-.project-card.mint {
-  background: var(--card-mint);
-}
-
-.project-card-top {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.project-open {
-  font: inherit;
-  background: none;
-  border: none;
-  padding: 4px 0;
-  flex: 1;
-  text-align: left;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--text-h);
-  cursor: pointer;
-}
-
-.card-menu {
-  background: none;
-  border: none;
-  font-size: 22px;
-  letter-spacing: 1px;
-  color: var(--text-h);
-  padding: 0 6px;
-  min-height: 44px;
-  min-width: 44px;
-  cursor: pointer;
-}
-
-.project-card-bottom {
-  font: inherit;
-  background: none;
-  border: none;
-  width: 100%;
+/* Navigationsleiste und großer Titel wie in iOS */
+.nav-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 0;
   min-height: 44px;
-  font-size: 15px;
-  color: var(--text);
-  cursor: pointer;
+  margin-bottom: -14px;
 }
 
-.project-card-bottom .chevron {
-  font-size: 20px;
-  color: var(--text-h);
-}
-
-/* Großer runder Hauptbutton */
-.pill-button {
+.nav-action,
+.nav-back {
   font: inherit;
-  font-size: 19px;
-  font-weight: 600;
-  min-height: 60px;
+  background: none;
   border: none;
-  border-radius: 30px;
-  background: var(--button-bg);
-  color: var(--button-text);
-  width: 100%;
+  color: var(--tint);
+  padding: 4px 0;
+  min-height: 44px;
   cursor: pointer;
   touch-action: manipulation;
 }
 
-.pill-button:disabled {
-  opacity: 0.5;
+.nav-action:disabled {
+  opacity: 0.4;
   cursor: default;
 }
 
-.new-project {
+.title-row {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
 }
 
-.new-project input {
-  font: inherit;
-  font-size: 18px;
-  min-height: 56px;
-  padding: 0 16px;
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  background: var(--card-surface);
-  color: var(--text-h);
-  box-sizing: border-box;
-}
-
-.text-button {
-  font: inherit;
-  background: none;
-  border: none;
-  color: var(--accent);
-  font-weight: 600;
-  min-height: 44px;
-  cursor: pointer;
-}
-
-.footer-hint,
-.empty-hint {
-  text-align: center;
-  font-size: 14px;
+.large-title {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+  color: var(--tint);
   margin: 0;
 }
 
-.empty-hint {
-  margin: 20px 0;
+/* Gruppierte Liste: Section-Header/-Footer außen, Zellen innen */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--secondary-label);
+  margin: 0 0 7px;
+  padding: 0 16px;
 }
 
-/* Projektansicht */
-.back-link {
+.section-footer {
+  font-size: 13px;
+  color: var(--secondary-label);
+  margin: 7px 0 0;
+  padding: 0 16px;
+}
+
+.cell-group {
+  background: var(--cell);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.cell-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.cell-row + .cell-row {
+  border-top: 0.5px solid var(--separator);
+}
+
+/* Gefüllter Standard-Button (Tint) */
+.ios-button {
   font: inherit;
-  background: none;
-  border: none;
-  padding: 4px 0;
-  align-self: flex-start;
   font-size: 17px;
   font-weight: 600;
-  color: var(--accent);
+  min-height: 50px;
+  border: none;
+  border-radius: 14px;
+  background: var(--tint);
+  color: var(--on-tint);
   cursor: pointer;
+  touch-action: manipulation;
 }
 
-/* Tool-Karten */
-.tool-card {
-  border-radius: 20px;
-  padding: 16px 18px 12px;
-  background: var(--card-lilac);
-}
-
-.tool-label {
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 1.4px;
-  font-weight: 700;
-  color: var(--text-h);
-  opacity: 0.75;
-  margin: 0;
+.ios-button:disabled {
+  opacity: 0.4;
+  cursor: default;
 }

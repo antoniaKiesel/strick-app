@@ -1,58 +1,45 @@
 /* Eigene Klassen statt der Klassen anderer Tools,
-   damit die Tools unabhängig voneinander bleiben.
-   Layout nach Figma: Überschrift mit „Bearbeiten“ außen,
-   kompakte Pfirsich-Karte mit segmentiertem Fortschritt. */
-
-.rapport-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 8px;
-}
-
-.rapport-heading {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--text-h);
-  margin: 0;
-}
+   damit die Tools unabhängig voneinander bleiben. */
 
 .rapport-edit-toggle {
   font: inherit;
   background: none;
   border: none;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--accent);
-  min-height: 40px;
-  padding: 0 4px;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--tint);
+  padding: 0;
   cursor: pointer;
   touch-action: manipulation;
 }
 
-.rapport-card {
-  background: var(--card-peach);
+.rapport-main {
+  justify-content: space-between;
+  padding-top: 14px;
+  padding-bottom: 14px;
 }
 
-.rapport-counter {
+.rapport-center {
+  flex: 1;
+  min-width: 0;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .rapport-value {
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--peach-text);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--tone-text, var(--label));
   margin: 0;
-  font-variant-numeric: tabular-nums;
   text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
 .rapport-button {
   font: inherit;
-  font-size: 26px;
+  font-size: 28px;
   width: 64px;
   height: 56px;
   border: none;
@@ -63,146 +50,135 @@
 }
 
 .rapport-button.minus {
-  background: var(--peach-strong);
-  color: var(--peach-text);
+  background: var(--fill-gray);
+  color: var(--label);
 }
 
 .rapport-button.plus {
-  background: var(--peach-deep);
-  color: #fff;
+  background: var(--tint);
+  color: var(--on-tint);
 }
 
-/* Segmentierter Fortschritt wie auf der Figma-Karte „Muster wiederholen“ */
+/* Fortschritt: ein Segment pro Rapport, in der Tint-Farbe */
 .rapport-segments {
   display: flex;
-  gap: 8px;
-  margin: 12px 0 2px;
+  gap: 6px;
 }
 
 .rapport-segment {
   flex: 1;
-  height: 8px;
-  border-radius: 4px;
-  background: var(--peach-strong);
+  height: 6px;
+  border-radius: 3px;
+  background: var(--fill-gray);
 }
 
 .rapport-segment.filled {
-  background: var(--peach-deep);
+  background: var(--tint);
 }
 
 /* Fallback bei vielen Rapporten: durchgehender Balken */
 .rapport-progress {
-  height: 8px;
-  border-radius: 4px;
-  background: var(--peach-strong);
+  height: 6px;
+  border-radius: 3px;
+  background: var(--fill-gray);
   overflow: hidden;
-  margin: 12px 0 2px;
 }
 
 .rapport-progress-fill {
   height: 100%;
-  border-radius: 4px;
-  background: var(--peach-deep);
+  border-radius: 3px;
+  background: var(--tint);
   transition: width 150ms ease-out;
 }
 
-/* Einstellungen, eingeblendet über „Bearbeiten“ */
+/* Einstellungen, eingeblendet über „Bearbeiten“ oder Tipp auf die Zelle */
 .rapport-edit-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 10px;
-}
-
-.rapport-total {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .rapport-total-label {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--peach-text);
-  margin-right: 2px;
+  font-size: 15px;
+  color: var(--tone-text, var(--label));
 }
 
 .rapport-total-value {
-  font-weight: 700;
-  color: var(--text-h);
-  min-width: 28px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--tone-text, var(--label));
+  min-width: 24px;
   text-align: center;
   font-variant-numeric: tabular-nums;
 }
 
-.rapport-total-button {
+/* iOS-Stepper: ein grauer Pillen-Container mit −/+ und Trennstrich */
+.ios-stepper {
+  display: flex;
+  background: var(--fill-gray);
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+.ios-stepper button {
   font: inherit;
-  font-size: 20px;
-  width: 44px;
-  height: 44px;
+  font-size: 19px;
+  width: 47px;
+  height: 36px;
   border: none;
-  border-radius: 12px;
-  background: var(--peach-strong);
-  color: var(--peach-text);
+  background: none;
+  color: var(--label);
   cursor: pointer;
   touch-action: manipulation;
 }
 
-.rapport-total-button:disabled {
-  opacity: 0.45;
+.ios-stepper button + button {
+  border-left: 0.5px solid var(--separator);
+}
+
+.ios-stepper button:disabled {
+  opacity: 0.35;
   cursor: default;
 }
 
-.rapport-edit-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.rapport-edit-spacer {
+  flex: 1;
 }
 
 .rapport-undo {
   font: inherit;
   background: none;
   border: none;
-  font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
   min-height: 40px;
   padding: 0 4px;
-  color: var(--peach-text);
+  color: var(--tint);
   cursor: pointer;
   touch-action: manipulation;
   white-space: nowrap;
 }
 
 .rapport-undo:disabled {
-  opacity: 0.45;
+  opacity: 0.4;
   cursor: default;
 }
 
-/* Dezente Warnfarbe wie beim Maschenzähler: Reset wirft den Stand weg
+/* Destruktive Aktion in iOS-Rot: Reset wirft den Stand weg
    (bleibt aber über Rückgängig zurückholbar). */
 .rapport-reset {
   font: inherit;
   background: none;
   border: none;
-  font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
   min-height: 40px;
   padding: 0 4px;
-  color: var(--danger);
+  color: var(--destructive);
   cursor: pointer;
   touch-action: manipulation;
 }
 
 .rapport-reset:disabled {
-  opacity: 0.45;
+  opacity: 0.4;
   cursor: default;
-}
-
-.rapport-hint {
-  text-align: center;
-  font-size: 13px;
-  margin: 8px 0 0;
-  color: var(--peach-text);
 }
