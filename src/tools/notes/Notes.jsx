@@ -56,7 +56,7 @@ function Notes({ label, value, onChange }) {
           + Hinzufügen
         </button>
       </div>
-      <div className="notes-card">
+      <div className="notes-card tone-butter">
         {value.length === 0 && (
           <p className="notes-empty">
             Noch keine Notizen – tippe oben auf „+ Hinzufügen“.

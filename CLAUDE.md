@@ -12,6 +12,14 @@ Antworte auf Deutsch.
 - Hosting über GitHub Pages
 - Mobile-first: große Buttons, einhändig bedienbar, Display soll anbleiben
 - Möglichst wenige Bibliotheken; neue Abhängigkeiten kurz begründen
+- Oberfläche im Standard-iOS-Look nach Apples Human Interface Guidelines:
+  gruppierte Listen, Systemschrift, iOS-Dark-Mode. Farben aber aus dem Figma:
+  Creme-Hintergrund, Lila als Tint, pro Tool ein Pastellton über die
+  tone-*-Klassen in src/index.css (Reihe Flieder, Maschen Mint, Rapport
+  Pfirsich, Notizen Butter); neue Tools bekommen einen eigenen Ton
+- Perspektive: evtl. spätere Portierung zu SwiftUI. Deshalb fachliche Logik
+  von React-Komponenten trennen (reine Funktionen pro Tool, siehe
+  src/tools/rapportCounter/rapportLogic.js) und das Datenmodell schlank halten
 
 ## Architektur
 - Jedes Tool liegt in einem eigenen Ordner unter src/tools/
@@ -59,4 +67,5 @@ Erledigte Punkte hier abhaken, sobald der zugehörige Pull Request gemergt ist.
 ## Arbeitsweise
 - In kleinen Schritten arbeiten und vor größeren Umbauten nachfragen
 - Am Ende jeder Aufgabe kurz zusammenfassen, was geändert wurde
-- Design: Ich liefere Figma-Screenshots; ohne Vorlage schlicht und gut lesbar
+- Design: Standard-iOS-Look nach Apple HIG; Figma-Screenshots von mir dienen
+  als inhaltliche Orientierung (welche Elemente wohin), nicht als Pixel-Vorlage

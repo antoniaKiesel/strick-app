@@ -4,28 +4,30 @@ import './RowCounter.css'
 // value (aktueller Wert aus der DB) und onChange (Wert oder Updater-Funktion).
 function RowCounter({ label, value, onChange }) {
   return (
-    <section className="tool-card">
-      <p className="tool-label">{label}</p>
-      <div className="row-counter">
-        <button
-          type="button"
-          className="counter-button minus"
-          onClick={() => onChange((current) => Math.max(0, current - 1))}
-          aria-label="Eine Reihe zurück"
-        >
-          −
-        </button>
-        <p className="row-counter-value">{value}</p>
-        <button
-          type="button"
-          className="counter-button plus"
-          onClick={() => onChange((current) => current + 1)}
-          aria-label="Eine Reihe weiter"
-        >
-          +
-        </button>
+    <section>
+      <p className="section-header">{label}</p>
+      <div className="cell-group tone-lilac">
+        <div className="cell-row row-counter">
+          <button
+            type="button"
+            className="row-button minus"
+            onClick={() => onChange((current) => Math.max(0, current - 1))}
+            aria-label="Eine Reihe zurück"
+          >
+            −
+          </button>
+          <p className="row-counter-value">{value}</p>
+          <button
+            type="button"
+            className="row-button plus"
+            onClick={() => onChange((current) => current + 1)}
+            aria-label="Eine Reihe weiter"
+          >
+            +
+          </button>
+        </div>
       </div>
-      <p className="tool-hint">Eine Reihe fertig? Tippe auf +.</p>
+      <p className="section-footer">Eine Reihe fertig? Tippe auf +.</p>
     </section>
   )
 }
