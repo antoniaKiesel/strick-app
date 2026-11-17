@@ -65,7 +65,7 @@ function RapportCounter({ label, value, onChange }) {
         </button>
       </p>
 
-      <div className="cell-group tone-peach" onClick={handleCellTap}>
+      <div className="cell-group tone-peach rapport-group" onClick={handleCellTap}>
         <div className="cell-row rapport-main">
           <button
             type="button"
