@@ -48,7 +48,7 @@ function StitchCounter({ label, value, onChange }) {
   return (
     <section>
       <p className="section-header">{label}</p>
-      <div className="cell-group">
+      <div className="cell-group tone-mint">
         <div className="cell-row stitch-main">
           <button
             type="button"

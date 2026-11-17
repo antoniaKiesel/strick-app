@@ -7,7 +7,7 @@
 .row-counter-value {
   font-size: 44px;
   font-weight: 700;
-  color: var(--label);
+  color: var(--tone-text, var(--label));
   margin: 0;
   font-variant-numeric: tabular-nums;
 }

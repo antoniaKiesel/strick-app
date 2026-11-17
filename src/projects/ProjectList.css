@@ -1,6 +1,7 @@
 .project-row {
   padding-top: 0;
   padding-bottom: 0;
+  background: var(--cell);
 }
 
 .project-row-main {

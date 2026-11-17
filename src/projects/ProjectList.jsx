@@ -5,6 +5,9 @@ import { createDefaultTools, toolRegistry } from '../tools/toolRegistry.js'
 import YarnIcon from '../components/YarnIcon.jsx'
 import './ProjectList.css'
 
+// Pastelltöne der Projektzeilen wie im Figma, reihum vergeben.
+const ROW_TONES = ['tone-lilac', 'tone-peach', 'tone-mint']
+
 // Kurzzeile wie „10 Reihen · 64 Maschen“ aus den Tool-Werten des Projekts.
 function statsLine(project) {
   return project.tools
@@ -75,8 +78,11 @@ function ProjectList({ onOpen }) {
           <span>{count === 1 ? '1 Projekt' : `${count} Projekte`}</span>
         </p>
         <div className="cell-group">
-          {projects?.map((project) => (
-            <div key={project.id} className="cell-row project-row">
+          {projects?.map((project, index) => (
+            <div
+              key={project.id}
+              className={`cell-row project-row ${ROW_TONES[index % ROW_TONES.length]}`}
+            >
               {editMode && (
                 <button
                   type="button"

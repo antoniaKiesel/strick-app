@@ -1,16 +1,33 @@
 :root {
-  /* iOS-Systemfarben (Light) nach Apple HIG:
-     grouped background, Zellen, Label-Hierarchie, Tint = systemPurple */
-  --bg: #f2f2f7;
+  /* Struktur nach Apple HIG (grouped background, Zellen, Label-Hierarchie),
+     Farben aus den Figma-Prototypen: Creme, Lila-Tint, Pastelltöne pro Tool */
+  --bg: #fdf8f2;
   --cell: #ffffff;
-  --label: #000000;
-  --secondary-label: rgba(60, 60, 67, 0.6);
-  --tertiary-label: rgba(60, 60, 67, 0.3);
-  --separator: rgba(60, 60, 67, 0.29);
-  --tint: #af52de;
+  --label: #272030;
+  --secondary-label: #6f6a7a;
+  --tertiary-label: rgba(39, 32, 48, 0.3);
+  --separator: rgba(39, 32, 48, 0.12);
+  --tint: #6f3aa6;
   --on-tint: #fff;
-  --fill-gray: rgba(120, 120, 128, 0.16);
-  --destructive: #ff3b30;
+  --fill-gray: rgba(111, 58, 166, 0.12);
+  --destructive: #b03a2e;
+
+  /* Pastellpaletten aus dem Figma: Fläche, kräftiger Ton (Minus-Button),
+     tiefer Ton (Plus-Button), Textfarbe für Werte */
+  --lilac: #eae0f8;
+  --lilac-strong: #d7c3f0;
+  --lilac-deep: #6f3aa6;
+  --lilac-text: #6f3aa6;
+  --mint: #dcefe3;
+  --mint-strong: #c3e3d0;
+  --mint-deep: #2e6b4f;
+  --mint-text: #1d5c40;
+  --peach: #f9e3c6;
+  --peach-strong: #f0d2a4;
+  --peach-deep: #9a5a24;
+  --peach-text: #7c4a1e;
+  --butter: #faf0c8;
+  --butter-strong: #f0e1a0;
 
   /* SF Pro auf Apple-Geräten, sonst nächstliegende Systemschrift */
   --sans: -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto,
@@ -25,16 +42,60 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #000000;
-    --cell: #1c1c1e;
-    --label: #ffffff;
-    --secondary-label: rgba(235, 235, 245, 0.6);
-    --tertiary-label: rgba(235, 235, 245, 0.3);
-    --separator: rgba(84, 84, 88, 0.65);
-    --tint: #bf5af2;
-    --fill-gray: rgba(120, 120, 128, 0.32);
-    --destructive: #ff453a;
+    --bg: #1c1722;
+    --cell: #262030;
+    --label: #f2edf8;
+    --secondary-label: #b3abc1;
+    --tertiary-label: rgba(242, 237, 248, 0.3);
+    --separator: rgba(242, 237, 248, 0.12);
+    --tint: #c7a4f2;
+    --fill-gray: rgba(199, 164, 242, 0.16);
+    --destructive: #e07b6f;
+
+    --lilac: #342947;
+    --lilac-strong: #4a3a66;
+    --lilac-deep: #7c4dbb;
+    --lilac-text: #c7a4f2;
+    --mint: #263830;
+    --mint-strong: #2d4a3b;
+    --mint-deep: #4e9a74;
+    --mint-text: #a8d9bf;
+    --peach: #403226;
+    --peach-strong: #54402a;
+    --peach-deep: #d99a5b;
+    --peach-text: #e8c49a;
+    --butter: #3d3722;
+    --butter-strong: #544b2c;
   }
+}
+
+/* Farbtöne pro Karte: überschreiben lokal die Systemvariablen,
+   damit Tools ohne eigene Farblogik automatisch passend eingefärbt werden.
+   --tone-text färbt große Zahlenwerte (Fallback: --label). */
+.tone-lilac {
+  --cell: var(--lilac);
+  --fill-gray: var(--lilac-strong);
+  --tint: var(--lilac-deep);
+  --tone-text: var(--lilac-text);
+}
+
+.tone-mint {
+  --cell: var(--mint);
+  --fill-gray: var(--mint-strong);
+  --tint: var(--mint-deep);
+  --tone-text: var(--mint-text);
+}
+
+.tone-peach {
+  --cell: var(--peach);
+  --fill-gray: var(--peach-strong);
+  --tint: var(--peach-deep);
+  --tone-text: var(--peach-text);
+}
+
+.tone-butter {
+  --cell: var(--butter);
+  --fill-gray: var(--butter-strong);
 }
 
 body {
@@ -93,7 +154,7 @@ body {
   font-size: 34px;
   font-weight: 700;
   letter-spacing: 0.1px;
-  color: var(--label);
+  color: var(--tint);
   margin: 0;
 }
 

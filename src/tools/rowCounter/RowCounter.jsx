@@ -6,7 +6,7 @@ function RowCounter({ label, value, onChange }) {
   return (
     <section>
       <p className="section-header">{label}</p>
-      <div className="cell-group">
+      <div className="cell-group tone-lilac">
         <div className="cell-row row-counter">
           <button
             type="button"
