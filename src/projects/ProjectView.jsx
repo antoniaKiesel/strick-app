@@ -25,6 +25,7 @@ function ProjectView({ projectId, onBack }) {
         return (
           <ToolComponent
             key={`${tool.type}-${index}`}
+            projectId={project.id}
             label={definition.name}
             value={tool.value}
             onChange={(value) => updateToolValue(project.id, index, value)}
