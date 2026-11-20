@@ -41,6 +41,13 @@ db.version(6).stores({
 // Version 7: Tool „Geführt stricken“ nachrüsten (Daten-Migration).
 db.version(7).stores({})
 
+// Geräte-Einstellungen als Schlüssel/Wert, z. B. der API-Key für den
+// KI-Import. Bleibt nur in diesem Browser (IndexedDB), wird nie
+// synchronisiert oder exportiert. Datensatz: { key, value }
+db.version(8).stores({
+  settings: 'key',
+})
+
 export function createProject(name, tools) {
   return db.projects.add({
     name,
@@ -97,4 +104,13 @@ export function updateToolValue(projectId, toolIndex, update) {
       const tool = project.tools[toolIndex]
       tool.value = typeof update === 'function' ? update(tool.value) : update
     })
+}
+
+export async function getSetting(key) {
+  return (await db.settings.get(key))?.value ?? null
+}
+
+// value null löscht die Einstellung.
+export function setSetting(key, value) {
+  return value == null ? db.settings.delete(key) : db.settings.put({ key, value })
 }

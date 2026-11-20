@@ -87,6 +87,21 @@ Pläne liegen in der eigenen Dexie-Tabelle `knittingPlans`
 schlank bleibt (gleiches Prinzip wie `patternFiles`). Das spätere Tool
 speichert im Projekt nur `{ planId, sizeId, rowOffset }`.
 
+## KI-Import
+
+`planImport.js` (rein, getestet) enthält den Auftrag an das Modell,
+liest das JSON aus der Antwort, setzt die Datei-id in die Verweise und
+prüft den Plan (`validatePlan`, dazu Seitenkonflikte als Hinweise).
+`claudeImport.js` schickt die angehängte PDF bzw. das Foto mit dem
+offiziellen SDK an die Claude API (Claude Opus 5.5, Streaming,
+serverseitiger Fallback bei Ablehnung). Ist der Plan ungültig, bekommt
+das Modell die Fehlerliste einmal zur Korrektur zurück.
+
+Der API-Key liegt nur lokal in der Dexie-Tabelle `settings` und geht
+direkt an api.anthropic.com (`dangerouslyAllowBrowser`, bewusst, weil
+die App keinen eigenen Server hat). Das SDK wird erst beim Import per
+`import()` nachgeladen.
+
 ## Tests
 
 ```

@@ -13,6 +13,7 @@ import {
 import { sophieScarf } from '../knittingPlan/examples/sophieScarf.js'
 import { vitaScarf } from '../knittingPlan/examples/vitaScarf.js'
 import PatternViewer from '../pattern/PatternViewer.jsx'
+import AiImport from './AiImport.jsx'
 import {
   blockNote,
   notesBeforeRow,
@@ -90,7 +91,7 @@ function GuidedKnitting({ label, value, onChange, projectId }) {
   if (record === undefined || counter === undefined) {
     body = null
   } else if (!plan) {
-    body = <PlanChooser onLoad={loadPlan} />
+    body = <PlanChooser projectId={projectId} onLoad={loadPlan} />
   } else if (!sizeKnown) {
     body = (
       <SizePicker
@@ -132,9 +133,10 @@ function GuidedKnitting({ label, value, onChange, projectId }) {
   )
 }
 
-function PlanChooser({ onLoad }) {
+function PlanChooser({ projectId, onLoad }) {
   const inputRef = useRef(null)
   const [busy, setBusy] = useState(false)
+  const [aiOpen, setAiOpen] = useState(false)
 
   async function run(task) {
     setBusy(true)
@@ -165,9 +167,33 @@ function PlanChooser({ onLoad }) {
     run(() => onLoad(plan))
   }
 
+  if (aiOpen) {
+    return (
+      <AiImport
+        projectId={projectId}
+        onLoad={onLoad}
+        onCancel={() => setAiOpen(false)}
+      />
+    )
+  }
+
   return (
     <>
       <div className="cell-group tone-rose">
+        <button
+          type="button"
+          className="cell-row guided-row"
+          onClick={() => setAiOpen(true)}
+          disabled={busy}
+        >
+          <span className="guided-row-main">
+            <span>Aus Anleitung erstellen</span>
+            <span className="guided-row-sub">mit KI, aus deiner PDF oder deinem Foto</span>
+          </span>
+          <span className="guided-chevron" aria-hidden="true">
+            ›
+          </span>
+        </button>
         {EXAMPLES.map((example) => (
           <button
             key={example.title}

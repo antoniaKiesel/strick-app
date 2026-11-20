@@ -228,3 +228,96 @@
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
+
+/* KI-Import */
+.guided-check {
+  width: 1.2em;
+  text-align: center;
+  font-weight: 600;
+  color: var(--tint);
+}
+
+.guided-key {
+  min-height: 52px;
+}
+
+.guided-key-input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  /* 16px+ verhindert, dass iOS beim Fokussieren hineinzoomt */
+  font-size: 17px;
+  border: none;
+  background: none;
+  color: var(--label);
+  padding: 0;
+}
+
+.guided-key-input:focus {
+  outline: none;
+}
+
+.guided-inline-action {
+  font: inherit;
+  font-size: 17px;
+  background: none;
+  border: none;
+  color: var(--tint);
+  min-height: 44px;
+  padding: 0 2px;
+  flex-shrink: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.guided-inline-action:disabled {
+  opacity: 0.5;
+}
+
+.guided-destructive-text {
+  color: var(--destructive);
+}
+
+.guided-actions {
+  justify-content: space-between;
+}
+
+.guided-start {
+  flex: 1;
+  max-width: 220px;
+}
+
+.guided-busy {
+  min-height: 56px;
+}
+
+.guided-spinner {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 2px solid var(--fill-gray);
+  border-top-color: var(--tint);
+  animation: guided-spin 0.8s linear infinite;
+}
+
+@keyframes guided-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.guided-error {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  font-size: 15px;
+  color: var(--destructive);
+}
+
+.guided-error ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--secondary-label);
+  font-size: 13px;
+}
