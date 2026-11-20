@@ -38,6 +38,12 @@ Antworte auf Deutsch.
   die aktuelle Zeile an, inkl. Wiederholungen und Abschnittswechseln
 
 ## Strickplan (geführtes Stricken)
+- Das Ganze muss für beliebige Anleitungen funktionieren. Einzelne
+  Anleitungen (z. B. der Sophie Scarf) sind nur Testfälle: Nichts im
+  Datenmodell, in der Logik oder im KI-Import darf auf eine bestimmte
+  Anleitung zugeschnitten sein
+- Endbedingungen, die die Zähler nicht kennen können (z. B. „bis 30 cm“),
+  bestätige ich per Häkchen von Hand, genau wie den Anschlag
 - Eine Anleitung wird beim Import in einen strukturierten Strickplan (JSON)
   übersetzt: Größen, Abschnitte (z. B. Anschlag, Zunahme, Abnahme), Reihen,
   Wiederholungen und Endbedingungen (z. B. „bis 28 Maschen“, „6× wiederholen“)
@@ -79,7 +85,8 @@ Erledigte Punkte hier abhaken, sobald der zugehörige Pull Request gemergt ist.
 - [ ] 7. Anleitungs-Tool im Projekt: Karte mit der aktuellen Zeile, Häkchen
       für den Anschlag, automatischer Sprung zur nächsten Zeile bzw. zum
       nächsten Abschnitt; Tipp auf die Karte öffnet die ganze Anleitung.
-      Zunächst mit einem von Hand angelegten Plan
+      Zunächst mit von Hand angelegten Beispielplänen (mehrere, möglichst
+      unterschiedlich aufgebaute Anleitungen)
 - [ ] 8. KI-Import: PDF/Foto per Claude-API in einen Strickplan übersetzen,
       beim Import Größe und Zählweise abfragen, Plan prüfen und korrigieren
 
