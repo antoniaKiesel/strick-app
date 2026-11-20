@@ -2,8 +2,8 @@
 
 Ein Strickplan beschreibt eine Anleitung so, dass die App zu jedem
 Zählerstand die passende Reihe anzeigen kann. Dieser Ordner enthält
-bisher nur das Modell und die reine Logik (`planLogic.js`), noch kein
-Tool und keine UI (Roadmap-Punkt 7).
+das Modell und die reine Logik (`planLogic.js`). Das Tool dazu
+(„Strickplan“, geführtes Stricken) liegt in `src/tools/guidedKnitting/`.
 
 Beispiele nach echten Anleitungen: `examples/sophieScarf.js` (ausgeschrieben,
 2 Größen) und `examples/vitaScarf.js` (Strickschrift, 3 Größen). Die

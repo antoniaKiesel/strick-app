@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import HighlightBox from './HighlightBox.jsx'
 
 // Alle Seiten einer PDF untereinander. Platzhalter mit korrektem
 // Seitenverhältnis gibt es sofort für alle Seiten; gerendert werden nur
@@ -6,7 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 // ihre Canvas wieder frei – sonst sprengen lange Anleitungen auf dem
 // iPhone das Canvas-Speicherlimit.
 
-function PdfPage({ pdf, renderer, pageNumber, size, cssWidth }) {
+function PdfPage({ pdf, renderer, pageNumber, size, cssWidth, highlight }) {
   const holderRef = useRef(null)
   const [nearby, setNearby] = useState(false)
 
@@ -45,13 +46,27 @@ function PdfPage({ pdf, renderer, pageNumber, size, cssWidth }) {
     return () => releaseCanvas(holder)
   }, [])
 
+  // Markierte Seite einmal beim Öffnen in die Mitte holen. Die
+  // Platzhalter haben schon ihre Höhe, die Position stimmt also auch,
+  // bevor die Seiten gerendert sind.
+  useEffect(() => {
+    if (!highlight) return
+    const target =
+      holderRef.current.querySelector('.viewer-highlight') ?? holderRef.current
+    target.scrollIntoView({ block: highlight.rect ? 'center' : 'start' })
+    // Nur beim Öffnen, nicht bei jedem Zoom.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div
       ref={holderRef}
       className="pdf-page"
       style={{ aspectRatio: `${size.width} / ${size.height}` }}
       aria-label={`Seite ${pageNumber}`}
-    />
+    >
+      {highlight?.rect && <HighlightBox rect={highlight.rect} />}
+    </div>
   )
 }
 
@@ -65,7 +80,7 @@ function releaseCanvas(holder) {
   }
 }
 
-function PdfPages({ blob, cssWidth, onPageCount }) {
+function PdfPages({ blob, cssWidth, onPageCount, highlight }) {
   const [state, setState] = useState({ status: 'loading' })
 
   useEffect(() => {
@@ -116,6 +131,7 @@ function PdfPages({ blob, cssWidth, onPageCount }) {
           pageNumber={index + 1}
           size={size}
           cssWidth={cssWidth}
+          highlight={highlight?.page === index + 1 ? highlight : null}
         />
       ))}
     </div>

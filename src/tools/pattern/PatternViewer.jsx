@@ -4,6 +4,7 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../../data/db.js'
 import ZoomPane from './ZoomPane.jsx'
 import PdfPages from './PdfPages.jsx'
+import HighlightBox from './HighlightBox.jsx'
 import { isPdf } from './patternFile.js'
 import './PatternViewer.css'
 
@@ -11,7 +12,10 @@ import './PatternViewer.css'
 // Bewusst eigenständig gehalten (nur fileId + onClose), damit spätere
 // Tools – etwa die Zeilen-Karte beim geführten Stricken – dieselbe
 // Ansicht öffnen können.
-function PatternViewer({ fileId, onClose }) {
+// highlight (optional) = { page, rect? }: Stelle aus einem Strickplan-
+// Verweis. Die Ansicht springt zu der Seite und rahmt rect ein
+// (x, y, w, h relativ zur Seite, 0–1). Bei Fotos zählt nur rect.
+function PatternViewer({ fileId, onClose, highlight = null }) {
   // undefined = lädt noch, null = nicht (mehr) vorhanden
   const file = useLiveQuery(
     async () => (await db.patternFiles.get(fileId)) ?? null,
@@ -69,9 +73,14 @@ function PatternViewer({ fileId, onClose }) {
                   blob={file.blob}
                   cssWidth={Math.round(baseWidth * zoom)}
                   onPageCount={setPageCount}
+                  highlight={highlight}
                 />
               ) : (
-                <PatternImage blob={file.blob} name={file.name} />
+                <PatternImage
+                  blob={file.blob}
+                  name={file.name}
+                  rect={highlight?.rect}
+                />
               )
             }
           </ZoomPane>
@@ -82,7 +91,7 @@ function PatternViewer({ fileId, onClose }) {
   )
 }
 
-function PatternImage({ blob, name }) {
+function PatternImage({ blob, name, rect }) {
   const imageRef = useRef(null)
 
   // Object-URL direkt am DOM setzen und beim Wechsel/Schließen wieder
@@ -93,7 +102,12 @@ function PatternImage({ blob, name }) {
     return () => URL.revokeObjectURL(objectUrl)
   }, [blob])
 
-  return <img ref={imageRef} className="viewer-image" alt={name} />
+  return (
+    <div className="viewer-image-holder">
+      <img ref={imageRef} className="viewer-image" alt={name} />
+      {rect && <HighlightBox rect={rect} />}
+    </div>
+  )
 }
 
 export default PatternViewer

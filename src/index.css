@@ -32,6 +32,10 @@
   --sky-strong: #c2daee;
   --sky-deep: #2f6690;
   --sky-text: #285a80;
+  --rose: #f8e2e8;
+  --rose-strong: #efc7d3;
+  --rose-deep: #a3416a;
+  --rose-text: #8a3358;
 
   /* SF Pro auf Apple-Geräten, sonst nächstliegende Systemschrift */
   --sans: -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto,
@@ -74,6 +78,10 @@
     --sky-strong: #2c4155;
     --sky-deep: #5b9bd0;
     --sky-text: #a9cdec;
+    --rose: #3e2630;
+    --rose-strong: #573443;
+    --rose-deep: #d47a9e;
+    --rose-text: #f0b4ca;
   }
 }
 
@@ -111,6 +119,13 @@
   --fill-gray: var(--sky-strong);
   --tint: var(--sky-deep);
   --tone-text: var(--sky-text);
+}
+
+.tone-rose {
+  --cell: var(--rose);
+  --fill-gray: var(--rose-strong);
+  --tint: var(--rose-deep);
+  --tone-text: var(--rose-text);
 }
 
 body {
