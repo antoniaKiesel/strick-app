@@ -41,7 +41,7 @@ export default defineConfig({
       },
       workbox: {
         // Alles aus dem Build vorab cachen, damit die App offline startet.
-        globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        globPatterns: ['**/*.{js,mjs,css,html,svg,png,woff2}'],
       },
     }),
   ],

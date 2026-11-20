@@ -2,6 +2,8 @@ import RowCounter from './rowCounter/RowCounter.jsx'
 import StitchCounter from './stitchCounter/StitchCounter.jsx'
 import RapportCounter from './rapportCounter/RapportCounter.jsx'
 import Notes from './notes/Notes.jsx'
+import Pattern from './pattern/Pattern.jsx'
+import GuidedKnitting from './guidedKnitting/GuidedKnitting.jsx'
 
 // Zentrale Liste aller Tools. Ein neues Tool braucht nur einen eigenen
 // Ordner unter src/tools/ und einen Eintrag hier – sonst nichts.
@@ -12,6 +14,16 @@ export const toolRegistry = {
     statLabel: 'Reihen', // für die Kurzzeile auf der Projektkarte
     component: RowCounter,
     defaults: { value: 0 },
+  },
+  guidedKnitting: {
+    key: 'guidedKnitting',
+    name: 'Strickplan',
+    // Der Plan liegt in der Tabelle knittingPlans; die Projektkarte
+    // bekommt keine Kurzzeile, sonst müsste die Liste alle Pläne laden.
+    formatStat: () => null,
+    component: GuidedKnitting,
+    // rowOffset = Zählerstand, bei dem der Plan begonnen hat
+    defaults: { value: { planId: null, sizeId: null, rowOffset: 0 } },
   },
   stitchCounter: {
     key: 'stitchCounter',
@@ -41,6 +53,14 @@ export const toolRegistry = {
           : `${value.length} Notizen`,
     component: Notes,
     defaults: { value: [] },
+  },
+  pattern: {
+    key: 'pattern',
+    name: 'Anleitung',
+    // value verweist nur auf Dateien in der Tabelle patternFiles.
+    formatStat: () => null,
+    component: Pattern,
+    defaults: { value: { fileIds: [] } },
   },
 }
 
