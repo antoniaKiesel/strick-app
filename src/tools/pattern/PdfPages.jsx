@@ -70,23 +70,28 @@ function PdfPages({ blob, cssWidth, onPageCount }) {
 
   useEffect(() => {
     let cancelled = false
-    let pdf = null
+    let loadingTask = null
     ;(async () => {
       try {
         const renderer = await import('./pdfRenderer.js')
-        pdf = await renderer.openPdf(blob)
+        loadingTask = await renderer.openPdf(blob)
+        if (cancelled) return loadingTask.destroy()
+        const pdf = await loadingTask.promise
         const sizes = await renderer.getPageSizes(pdf)
         if (cancelled) return
         setState({ status: 'ready', pdf, renderer, sizes })
         onPageCount?.(sizes.length)
       } catch (error) {
+        if (cancelled) return // Abbruch beim Schließen ist kein Fehler
         console.error(error)
-        if (!cancelled) setState({ status: 'error' })
+        setState({ status: 'error' })
       }
     })()
+    // Aufräumen darf nie werfen: ein Fehler hier reißt den ganzen
+    // Komponentenbaum mit (vorher: weiße Seite nach „Fertig“).
     return () => {
       cancelled = true
-      pdf?.destroy()
+      loadingTask?.destroy().catch(() => {})
     }
     // onPageCount bewusst nicht als Abhängigkeit: nur pro Datei neu laden.
     // eslint-disable-next-line react-hooks/exhaustive-deps

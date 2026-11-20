@@ -12,9 +12,12 @@ GlobalWorkerOptions.workerSrc = workerUrl
 // bleiben wir mit 5 Mio. Pixel (≈ 20 MB) pro Seite sicher darunter.
 const MAX_CANVAS_PIXELS = 5_000_000
 
+// Liefert den Lade-Task von pdf.js: task.promise ergibt das Dokument,
+// task.destroy() gibt Dokument und Worker wieder frei. (Das Dokument
+// selbst hat in pdf.js 6 kein destroy() mehr.)
 export async function openPdf(blob) {
   const data = new Uint8Array(await blob.arrayBuffer())
-  return getDocument({ data }).promise
+  return getDocument({ data })
 }
 
 // Seitenformate (in PDF-Punkten) aller Seiten – reicht für Platzhalter
