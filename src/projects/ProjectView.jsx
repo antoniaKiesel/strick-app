@@ -1,6 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db, updateToolValue } from '../data/db.js'
 import { toolRegistry } from '../tools/toolRegistry.js'
+import ToolErrorBoundary from '../components/ToolErrorBoundary.jsx'
 
 function ProjectView({ projectId, onBack }) {
   const project = useLiveQuery(() => db.projects.get(projectId), [projectId])
@@ -23,13 +24,17 @@ function ProjectView({ projectId, onBack }) {
         if (!definition) return null
         const ToolComponent = definition.component
         return (
-          <ToolComponent
+          <ToolErrorBoundary
             key={`${tool.type}-${index}`}
-            projectId={project.id}
             label={definition.name}
-            value={tool.value}
-            onChange={(value) => updateToolValue(project.id, index, value)}
-          />
+          >
+            <ToolComponent
+              projectId={project.id}
+              label={definition.name}
+              value={tool.value}
+              onChange={(value) => updateToolValue(project.id, index, value)}
+            />
+          </ToolErrorBoundary>
         )
       })}
     </div>
