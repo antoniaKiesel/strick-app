@@ -343,7 +343,11 @@ function Guide({ plan, settings, counter, projectFileIds, editing, onChange, onR
       <p className="section-footer">
         {counter === null
           ? 'Kein Reihenzähler im Projekt – der Plan bleibt bei Reihe 1.'
-          : `Folgt dem Reihenzähler (Stand ${count}).${
+          : // Zuordnung immer zeigen: Nach einem Sprung ist der Plan
+            // gegenüber dem Zähler verschoben, das soll sichtbar sein.
+            `Reihenzähler ${count} → ${
+              finished ? 'Plan fertig' : `Reihe ${rowNumber} im Plan`
+            }.${
               fileId != null && !finished ? ' Tippe auf die Karte für die Anleitung.' : ''
             }`}
       </p>
@@ -355,7 +359,10 @@ function Guide({ plan, settings, counter, projectFileIds, editing, onChange, onR
           settings={settings}
           rowNumber={rowNumber}
           onStep={(delta) => goToRow(stepRow(resolved, rowNumber, delta))}
-          onJump={(sectionIndex) => goToRow(sectionStartRow(resolved, sectionIndex))}
+          // null = Anfang der Anleitung (Reihe 1)
+          onJump={(sectionIndex) =>
+            goToRow(sectionIndex == null ? 1 : sectionStartRow(resolved, sectionIndex))
+          }
           onSize={(sizeId) =>
             onChange((current) => ({ ...settingsOf(current), sizeId }))
           }
@@ -467,6 +474,19 @@ function PlanSettings({ plan, resolved, settings, rowNumber, onStep, onJump, onS
 
       <p className="section-header">Springen zu</p>
       <div className="cell-group tone-rose">
+        <button
+          type="button"
+          className="cell-row guided-row"
+          onClick={() => onJump(null)}
+        >
+          <span className="guided-row-main">
+            <span>Anfang der Anleitung</span>
+            <span className="guided-row-sub">Reihe 1</span>
+          </span>
+          <span className="guided-chevron" aria-hidden="true">
+            ›
+          </span>
+        </button>
         {resolved.sections
           .filter((section) => section.rowCount > 0)
           .map((section) => (
