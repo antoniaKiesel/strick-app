@@ -2,6 +2,7 @@ import RowCounter from './rowCounter/RowCounter.jsx'
 import StitchCounter from './stitchCounter/StitchCounter.jsx'
 import RapportCounter from './rapportCounter/RapportCounter.jsx'
 import Notes from './notes/Notes.jsx'
+import Pattern from './pattern/Pattern.jsx'
 
 // Zentrale Liste aller Tools. Ein neues Tool braucht nur einen eigenen
 // Ordner unter src/tools/ und einen Eintrag hier – sonst nichts.
@@ -41,6 +42,14 @@ export const toolRegistry = {
           : `${value.length} Notizen`,
     component: Notes,
     defaults: { value: [] },
+  },
+  pattern: {
+    key: 'pattern',
+    name: 'Anleitung',
+    // value verweist nur auf Dateien in der Tabelle patternFiles.
+    formatStat: () => null,
+    component: Pattern,
+    defaults: { value: { fileIds: [] } },
   },
 }
 

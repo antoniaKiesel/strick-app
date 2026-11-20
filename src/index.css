@@ -28,6 +28,10 @@
   --peach-text: #7c4a1e;
   --butter: #faf0c8;
   --butter-strong: #f0e1a0;
+  --sky: #dceaf6;
+  --sky-strong: #c2daee;
+  --sky-deep: #2f6690;
+  --sky-text: #285a80;
 
   /* SF Pro auf Apple-Geräten, sonst nächstliegende Systemschrift */
   --sans: -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto,
@@ -66,6 +70,10 @@
     --peach-text: #e8c49a;
     --butter: #3d3722;
     --butter-strong: #544b2c;
+    --sky: #22303d;
+    --sky-strong: #2c4155;
+    --sky-deep: #5b9bd0;
+    --sky-text: #a9cdec;
   }
 }
 
@@ -96,6 +104,13 @@
 .tone-butter {
   --cell: var(--butter);
   --fill-gray: var(--butter-strong);
+}
+
+.tone-sky {
+  --cell: var(--sky);
+  --fill-gray: var(--sky-strong);
+  --tint: var(--sky-deep);
+  --tone-text: var(--sky-text);
 }
 
 body {
@@ -196,6 +211,25 @@ body {
 
 .cell-row + .cell-row {
   border-top: 0.5px solid var(--separator);
+}
+
+/* Ersatzanzeige, wenn ein Tool abstürzt (ToolErrorBoundary) */
+.tool-error {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  font-size: 15px;
+  color: var(--secondary-label);
+}
+
+.tool-error-retry {
+  font: inherit;
+  background: none;
+  border: none;
+  color: var(--tint);
+  min-height: 44px;
+  padding: 0;
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
 /* Gefüllter Standard-Button (Tint) */
