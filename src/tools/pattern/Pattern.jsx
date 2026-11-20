@@ -15,6 +15,15 @@ import './Pattern.css'
 // value = { fileIds: [...] } – nur Verweise, nicht die Dateien selbst.
 // Mehrere Dateien pro Projekt, weil Anleitungen oft aus einer PDF plus
 // Fotos (Strickschrift, Zeitschriftenseiten) bestehen.
+// Liest die Datei-ids robust aus dem gespeicherten Wert. Unerwartete
+// Formen (z. B. ein früheres { fileId }) dürfen nicht die ganze App
+// abstürzen lassen – useLiveQuery wirft Abfragefehler sonst im Render.
+function fileIdsOf(value) {
+  if (Array.isArray(value?.fileIds)) return value.fileIds
+  if (value?.fileId != null) return [value.fileId]
+  return []
+}
+
 function Pattern({ label, value, onChange, projectId }) {
   const inputRef = useRef(null)
   // id der Datei, die ersetzt werden soll; null = neue Datei anhängen
@@ -23,11 +32,14 @@ function Pattern({ label, value, onChange, projectId }) {
   const [editing, setEditing] = useState(false)
   const [busy, setBusy] = useState(false)
 
-  const { fileIds } = value
+  const fileIds = fileIdsOf(value)
+  // Stabiler Schlüssel als Abhängigkeit: fileIdsOf kann bei jedem Render
+  // ein neues Array liefern, das würde die Abfrage endlos neu starten.
+  const idsKey = fileIds.join(',')
   // bulkGet liefert undefined für fehlende Datensätze – die überspringen wir.
   const files = useLiveQuery(
     async () => (await db.patternFiles.bulkGet(fileIds)).filter(Boolean),
-    [fileIds]
+    [idsKey]
   )
 
   function chooseFile(replaceId = null) {
@@ -50,13 +62,15 @@ function Pattern({ label, value, onChange, projectId }) {
       // Erst die neue Datei sichern, dann den Verweis umhängen, dann die
       // alte löschen – so geht bei einem Fehler nie eine Anleitung verloren.
       const newId = await addPatternFile(projectId, chosen)
-      await onChange((current) => ({
-        ...current,
-        fileIds:
-          replaceId == null
-            ? [...current.fileIds, newId]
-            : current.fileIds.map((id) => (id === replaceId ? newId : id)),
-      }))
+      await onChange((current) => {
+        const ids = fileIdsOf(current)
+        return {
+          fileIds:
+            replaceId == null
+              ? [...ids, newId]
+              : ids.map((id) => (id === replaceId ? newId : id)),
+        }
+      })
       if (replaceId != null) await deletePatternFile(replaceId)
     } catch (error) {
       console.error(error)
@@ -71,8 +85,7 @@ function Pattern({ label, value, onChange, projectId }) {
       return
     }
     await onChange((current) => ({
-      ...current,
-      fileIds: current.fileIds.filter((id) => id !== file.id),
+      fileIds: fileIdsOf(current).filter((id) => id !== file.id),
     }))
     await deletePatternFile(file.id)
     if (fileIds.length <= 1) setEditing(false)
