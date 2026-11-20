@@ -4,14 +4,17 @@
 // Typ: Strickschrift statt ausgeschriebener Reihen, drei Größen (A/B/C),
 // Länge in „Mustern in der Höhe“ statt in Reihen.
 //
-// Noch unbestätigt (am Bildschirm aus dem Diagramm abgezählt):
-// - Der Rapport zwischen den dicken Linien hat 10 Reihen = ½ Muster,
-//   also 6½ Muster = 13 Rapporte (A/B) und 4½ Muster = 9 Rapporte (C).
-// - Die Diagrammreihen vor dem Rapport und das Ende „wie es das
-//   Diagramm vorgibt“ fehlen hier noch; die Nummerierung 1–10 bezieht
-//   sich nur auf den Rapport.
-// Für die Tests ist das egal: Sie prüfen die Struktur (Diagramm-Block,
-// Größen-Map, abgeleitete Hin-/Rückseite), nicht die Strickanleitung.
+// Aus dem Diagramm (S. 4) ausgezählt, per Pixelanalyse der Rasterlinien:
+// - 30 Diagrammreihen, Hin- und Rückreihen sind beide eingezeichnet
+//   (Legende „re in Hin-R, li in Rück-R“).
+// - Reihe 1–18: Anfang unter der unteren dicken Linie (einmal).
+// - Reihe 19–28: Rapport zwischen den dicken Linien = ½ Muster.
+// - Reihe 29–30: Ende („Ende, wie es das Diagramm vorgibt“).
+// Ein Muster in der Höhe sind 20 Reihen; der Anfang zählt mittig als
+// 1 Muster. 6½ Muster (A/B) = 18 + 11·10 + 2 = 130 Reihen,
+// 4½ Muster (C) = 18 + 7·10 + 2 = 90 Reihen.
+// Die Zuordnung „Anfang = 1 Muster“ ist aus dem Diagramm abgeleitet,
+// nicht ausdrücklich in der Anleitung genannt.
 
 export const vitaScarf = {
   version: 1,
@@ -34,16 +37,25 @@ export const vitaScarf = {
     },
     {
       title: 'Muster',
+      // Diagramm auf S. 4, auf der Seite um 90° gedreht abgedruckt.
+      ref: { fileId: 2, page: 4, rect: { x: 0.1, y: 0.15, w: 0.32, h: 0.74 } },
       blocks: [
         {
           ref: { fileId: 2, page: 3, rect: { x: 0.1, y: 0.1, w: 0.8, h: 0.05 } },
           rows: [{ label: '1. Reihe', text: 'Rück-R: Muster einteilen (li/re laut Anleitung)' }],
         },
         {
+          note: 'Anfang des Diagramms',
+          chart: { from: 1, to: 18 },
+        },
+        {
           note: 'Rapport zwischen den dicken Linien wiederholen',
-          ref: { fileId: 2, page: 4, rect: { x: 0.1, y: 0.15, w: 0.3, h: 0.73 } },
-          repeat: { A: 13, B: 13, C: 9 },
-          chart: { from: 1, to: 10 },
+          repeat: { A: 11, B: 11, C: 7 },
+          chart: { from: 19, to: 28 },
+        },
+        {
+          note: 'Ende des Diagramms',
+          chart: { from: 29, to: 30 },
         },
       ],
     },

@@ -133,8 +133,11 @@ describe('resolvePlan', () => {
   })
 
   it('berechnet die Reihenzahl je Größe (Vita, Diagramm)', () => {
-    assert.equal(totalRows(resolvePlan(vitaScarf, 'A')), 1 + 13 * 10 + 1)
-    assert.equal(totalRows(resolvePlan(vitaScarf, 'C')), 1 + 9 * 10 + 1)
+    // Reihe 1 + Diagramm (18 + n·10 + 2) + Abkettreihe;
+    // 6½ bzw. 4½ Muster à 20 Reihen = 130 bzw. 90 Diagrammreihen
+    assert.equal(totalRows(resolvePlan(vitaScarf, 'A')), 1 + 18 + 11 * 10 + 2 + 1)
+    assert.equal(totalRows(resolvePlan(vitaScarf, 'B')), 1 + 6.5 * 20 + 1)
+    assert.equal(totalRows(resolvePlan(vitaScarf, 'C')), 1 + 4.5 * 20 + 1)
   })
 
   it('setzt Platzhalter in Notizen ein', () => {
@@ -242,9 +245,18 @@ describe('rowAt', () => {
     assert.equal(row2.side, 'RS')
     assert.equal(rowAt(vita, 3).side, 'WS')
 
+    // Rapport: Diagrammreihen 19–28, 7× (Größe C)
+    const firstRapportRow = rowAt(vita, 1 + 18 + 1)
+    assert.equal(firstRapportRow.chartRow, 19)
+    assert.equal(firstRapportRow.repeatCount, 7)
+    assert.equal(firstRapportRow.side, 'RS')
+    const lastRapportRow = rowAt(vita, 1 + 18 + 70)
+    assert.equal(lastRapportRow.chartRow, 28)
+    assert.equal(lastRapportRow.repeat, 7)
+
     const lastChartRow = rowAt(vita, 91)
-    assert.equal(lastChartRow.chartRow, 10)
-    assert.equal(lastChartRow.repeat, 9)
+    assert.equal(lastChartRow.chartRow, 30)
+    assert.equal(lastChartRow.side, 'WS')
 
     // Abkettreihe: neuer Abschnitt, Wechsel läuft weiter → Hinreihe
     const bindOff = rowAt(vita, 92)
