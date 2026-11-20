@@ -32,8 +32,30 @@ Antworte auf Deutsch.
 - Reihenzähler und Maschenzähler mit +/− und Rückgängig
 - Rapport-/Wiederholungszähler
 - Notizen pro Projekt bzw. Reihe
-- Anleitung (PDF oder Foto) an ein Projekt anhängen
-- Markierung der aktuellen Zeile in der Anleitung
+- Anleitung (PDF oder Foto) an ein Projekt anhängen und ganz ansehen
+- Geführtes Stricken: Die App versteht die Anleitung (KI-Import mit
+  anschließender Korrektur durch mich) und zeigt anhand der Zähler immer
+  die aktuelle Zeile an, inkl. Wiederholungen und Abschnittswechseln
+
+## Strickplan (geführtes Stricken)
+- Das Ganze muss für beliebige Anleitungen funktionieren. Einzelne
+  Anleitungen (z. B. der Sophie Scarf) sind nur Testfälle: Nichts im
+  Datenmodell, in der Logik oder im KI-Import darf auf eine bestimmte
+  Anleitung zugeschnitten sein
+- Endbedingungen, die die Zähler nicht kennen können (z. B. „bis 30 cm“),
+  bestätige ich per Häkchen von Hand, genau wie den Anschlag
+- Eine Anleitung wird beim Import in einen strukturierten Strickplan (JSON)
+  übersetzt: Größen, Abschnitte (z. B. Anschlag, Zunahme, Abnahme), Reihen,
+  Wiederholungen und Endbedingungen (z. B. „bis 28 Maschen“, „6× wiederholen“)
+- Beim Import fragt die App: welche Größe ich stricke und ob ich die gerade
+  gestrickte oder die fertige Reihe zähle
+- Die aktuelle Zeile wird als reine Funktion aus Plan + Zählerständen
+  berechnet (keine React-Abhängigkeit, mit Tests)
+- KI-Import über die Claude-API: Es gibt keinen eigenen Server, daher hinterlege
+  ich meinen eigenen API-Schlüssel in der App; er bleibt nur auf dem Gerät.
+  Nur der Import braucht Internet, danach läuft alles offline
+- Die KI kann sich irren: Den erzeugten Plan prüfe und korrigiere ich, bevor
+  er benutzt wird. Ein Plan lässt sich auch komplett von Hand anlegen
 
 ## Vorschau im iPhone-Simulator
 In jeder Session, die an der App arbeitet, soll ich die Entwicklung live
@@ -55,8 +77,18 @@ Erledigte Punkte hier abhaken, sobald der zugehörige Pull Request gemergt ist.
 - [x] 2. Maschenzähler
 - [x] 3. Rapport-/Wiederholungszähler
 - [x] 4. Notizen
-- [ ] 5. Anleitung anhängen (PDF/Foto)
-- [ ] 6. Zeilenmarkierung in der Anleitung
+- [ ] 5. Anleitung anhängen und ansehen: PDF/Foto pro Projekt speichern,
+      Vollansicht zum Blättern
+- [ ] 6. Strickplan-Modell + Logik: Datenmodell und reine Funktionen, die aus
+      Plan und Zählerständen die aktuelle Zeile berechnen (Wiederholungen,
+      Endbedingungen, Größe, Zählweise), abgesichert mit Tests
+- [ ] 7. Anleitungs-Tool im Projekt: Karte mit der aktuellen Zeile, Häkchen
+      für den Anschlag, automatischer Sprung zur nächsten Zeile bzw. zum
+      nächsten Abschnitt; Tipp auf die Karte öffnet die ganze Anleitung.
+      Zunächst mit von Hand angelegten Beispielplänen (mehrere, möglichst
+      unterschiedlich aufgebaute Anleitungen)
+- [ ] 8. KI-Import: PDF/Foto per Claude-API in einen Strickplan übersetzen,
+      beim Import Größe und Zählweise abfragen, Plan prüfen und korrigieren
 
 ## Git-Workflow
 - Für jede neue Funktion einen eigenen Branch (feature/…, fix/…, refactor/…)
