@@ -85,6 +85,15 @@ db.version(5)
       })
   )
 
+// Strickpläne (Modell siehe src/tools/knittingPlan/README.md) liegen
+// aus demselben Grund in einer eigenen Tabelle: Ein ausgeschriebener
+// Plan kann groß werden, die Projektliste soll ihn nicht mitladen.
+// Datensatz: { id, projectId, plan, createdAt, updatedAt }
+// Ein reines Schema-Upgrade, die Projekte selbst ändern sich nicht.
+db.version(6).stores({
+  knittingPlans: '++id, projectId',
+})
+
 export function createProject(name, tools) {
   return db.projects.add({
     name,
@@ -93,10 +102,12 @@ export function createProject(name, tools) {
   })
 }
 
-// Projekt und zugehörige Anleitungsdateien in einer Transaktion löschen.
+// Projekt samt Anleitungsdateien und Strickplänen in einer Transaktion
+// löschen.
 export function deleteProject(id) {
-  return db.transaction('rw', db.projects, db.patternFiles, async () => {
+  return db.transaction('rw', db.projects, db.patternFiles, db.knittingPlans, async () => {
     await db.patternFiles.where('projectId').equals(id).delete()
+    await db.knittingPlans.where('projectId').equals(id).delete()
     await db.projects.delete(id)
   })
 }
