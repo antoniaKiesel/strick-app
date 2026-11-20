@@ -1,0 +1,230 @@
+/* Eigene Klassen (guided-*), damit das Tool unabhängig von den
+   anderen bleibt. Farben kommen aus .tone-rose (src/index.css). */
+
+.guided-edit-toggle {
+  font: inherit;
+  background: none;
+  border: none;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--tint);
+  padding: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.guided-row {
+  font: inherit;
+  background: none;
+  border: none;
+  color: var(--label);
+  text-align: left;
+  min-height: 52px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.guided-row:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.guided-row-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.guided-row-sub {
+  font-size: 13px;
+  color: var(--secondary-label);
+}
+
+.guided-chevron {
+  font-size: 22px;
+  color: var(--tertiary-label);
+}
+
+.guided-action {
+  color: var(--tint);
+}
+
+.guided-destructive {
+  color: var(--destructive);
+  justify-content: center;
+}
+
+.guided-heading,
+.guided-before {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.guided-plan-title {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.guided-message {
+  margin: 0;
+  color: var(--secondary-label);
+}
+
+/* Zeilen-Karte: das Wichtigste groß, Kontext klein drumherum */
+.guided-card {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.guided-card-button {
+  font: inherit;
+  background: none;
+  border: none;
+  color: var(--label);
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.guided-card-button:active {
+  background: var(--fill-gray);
+}
+
+.guided-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--secondary-label);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.guided-side {
+  flex-shrink: 0;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--fill-gray);
+  color: var(--tone-text, var(--label));
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.guided-row-title {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--tone-text, var(--label));
+}
+
+.guided-text {
+  font-size: 20px;
+  line-height: 1.35;
+}
+
+.guided-stitches {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.guided-note {
+  font-size: 15px;
+  color: var(--secondary-label);
+  font-style: italic;
+}
+
+.guided-open {
+  align-self: flex-end;
+  font-size: 15px;
+  color: var(--tint);
+}
+
+/* Fortschrittsbalken wie UIProgressView */
+.guided-progress {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+}
+
+.guided-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--fill-gray);
+  overflow: hidden;
+}
+
+.guided-bar > div {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--tint);
+  transition: width 0.2s ease;
+}
+
+.guided-progress-text {
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Einstellungen im Bearbeiten-Modus */
+.guided-settings {
+  display: flex;
+  flex-direction: column;
+  margin-top: 22px;
+}
+
+.guided-settings .cell-group + .section-header,
+.guided-settings .cell-group + .cell-group {
+  margin-top: 22px;
+}
+
+.guided-size {
+  justify-content: space-between;
+  min-height: 44px;
+}
+
+.guided-size select {
+  font: inherit;
+  color: var(--tint);
+  background: none;
+  border: none;
+  text-align: right;
+  max-width: 60%;
+}
+
+.guided-stepper {
+  min-height: 52px;
+}
+
+.guided-step {
+  font: inherit;
+  font-size: 24px;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: var(--fill-gray);
+  color: var(--tint);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.guided-step:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.guided-step-value {
+  min-width: 2.5em;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
